@@ -59,26 +59,26 @@ export const homeV2 = {
     // Augus 3: his three cards (titles, order and the facts in each), in plain words, with the jargon
     // kept to the small lines (Augus's worry). Ryan 5: "Anyone can ask" over Augus's "Any app can ask"
     // (§2 p2 "Anyone may pay a fee", §4.4.1 p7). Ryan 17: the differentiators said plainly: no
-    // governance, no multisigs, the attack cost. Every claim line fits one line in H3 (24 px). Each body
-    // only says what its claim means, in Augus's words (owner, 29 Oct 2026), and all three keep two lines
-    // from 1024 to 1920 (measured), so the three cards stay level (home-v2.css).
+    // governance, no multisigs, the attack cost. Every claim line fits one line in H3 (24 px). The bodies
+    // are Augus's 29 Oct lines (owner, same day), trimmed so all three switch together: two lines from
+    // 1300 up and three from 1024 to 1280 (measured; they differ only in about 15 px around 1290).
     tenets: [
-      // Augus's "No approvals, no gatekeepers" (his earlier body on /ryan-augus/): what "permissionless" means,
-      // since the claim and the hero already say who can ask, report or challenge (§2 p2, §4.4.1 p7).
-      { title: 'Permissionless', diagram: 'cross', claim: ['Anyone can ask.', 'Anyone can answer.'], body: 'No approvals and no gatekeepers, whoever you are.' },
-      // Augus's "no company, developer or governing body" without "governing body", which the claim says.
-      // "No multisigs." sits in the claim. Abstract p1: truth "is not decided by token holders, governance,
-      // multisigs, or anyone else"; §2 p2: "without any centralized backstops or vetoes". Augus's "no admin
-      // keys" stays out: the whitepaper never mentions admin keys (open question for Augus). The middleman
-      // who falls away shows it.
-      { title: 'Trustless', diagram: 'authority', claim: ['No governance.', 'No multisigs.'], body: 'No company or developer can overrule an answer.' },
-      // Owner, 29 Oct 2026: Augus's claim, verbatim (as on /ryan-augus/), and his "economic defenses" body,
-      // hedged: "Designed with", since the design isn't deployed, and "few can match" for his "some of the
-      // strongest … of any oracle". The whitepaper's own estimate claims more: Abstract p1 "significantly more
-      // resistant to attack than all current offerings"; §3 p3, the most expensive to attack of the designs
-      // surveyed (134% of FDV); §8 p20. No "money" or "bond" in this section (house rule: nothing may suggest
-      // money buys the answer).
-      { title: 'Robust', diagram: 'mesh', claim: ['Harder to game.', 'Costlier to manipulate.'], body: 'Designed with economic defenses that few can match.' },
+      // Augus's body, "Ask" for "Submit" (the claim's verb and How it works' first step) and "a question" for
+      // "a question about a real-world event". Anyone may ask, report or challenge (§2 p2, §4.4.1 p7).
+      { title: 'Permissionless', diagram: 'cross', claim: ['Anyone can ask.', 'Anyone can answer.'], body: 'Ask a question, report what happened or challenge an answer you believe is wrong.' },
+      // Augus's body ("i like", the owner), "a dispute" for "Augur's dispute process", which took it to four
+      // lines at 1024. "No multisigs." sits in the claim. Abstract p1: truth "is not decided by token holders,
+      // governance, multisigs, or anyone else"; §2 p2: "without any centralized backstops or vetoes". Augus's
+      // "no admin keys" stays out: the whitepaper never mentions admin keys (open question for Augus). The
+      // middleman who falls away shows it.
+      { title: 'Trustless', diagram: 'authority', claim: ['No governance.', 'No multisigs.'], body: 'No company, developer or governing body can overrule the outcome of a dispute.' },
+      // Owner, 29 Oct 2026: Augus's claim, verbatim (as on /ryan-augus/), and his body with "Designed with" for
+      // "Built with", since the design isn't deployed, and "that set a new bar" for his "some of the strongest …
+      // of any oracle" (the owner turned down "that few can match"): the paper's "unprecedented security"
+      // (Abstract p1), whose own estimate ranks it above all current offerings (Abstract p1; §3 p3, 134% of
+      // FDV; §8 p20). "False outcomes" is the paper's "fraudulent outcome" (Abstract p1). No "money" or "bond"
+      // in this section (house rule: nothing may suggest money buys the answer).
+      { title: 'Robust', diagram: 'mesh', claim: ['Harder to game.', 'Costlier to manipulate.'], body: 'Designed with economic defenses against false outcomes that set a new bar.' },
     ],
     // The statement stays v1's: "The answer is nobody’s call." On /2/ it heads the closer, above a panel of
     // the two readers (owner, 23 and 25 Oct 2026; Tenets.astro, home-v2-only.css), so each payoff says what
