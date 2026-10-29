@@ -1,7 +1,7 @@
 {
   "fileKey": "3RgHvLRqEZDsAmcBQ7tvVa",
   "nodeId": "28:7",
-  "extractedAt": "2026-10-13",
+  "extractedAt": "2026-10-29",
   "sections": [
     {
       "id": "208:1205",
@@ -23,7 +23,7 @@
     },
     {
       "id": "30:28",
-      "name": "02 · Header",
+      "name": "02 · Header (Melo's homepage draft, 29 Oct 2026; Figma pending)",
       "text": [
         [
           "I30:28;112:137",
@@ -44,12 +44,16 @@
         [
           "I30:28;112:151;29:7",
           "Talk to us"
+        ],
+        [
+          "melo:header/1",
+          "Menu"
         ]
       ]
     },
     {
       "id": "31:51",
-      "name": "03 · Hero",
+      "name": "03 · Hero (Melo's homepage draft, 29 Oct 2026; Figma pending)",
       "text": [
         [
           "31:55",
@@ -60,8 +64,12 @@
           "Real-world answers for onchain apps, controlled by no one."
         ],
         [
-          "31:58",
-          "Augur Lituus is the next generation of Augur’s oracle. Anyone can answer, anyone can challenge, and lying is designed to cost more than it pays."
+          "melo:hero/1",
+          "Augur Lituus is the next generation of Augur’s oracle. Anyone can ask, anyone can answer, anyone can challenge, and lying is designed to cost more than"
+        ],
+        [
+          "melo:hero/2",
+          "ever before."
         ],
         [
           "I31:60;29:4",
@@ -75,279 +83,455 @@
     },
     {
       "id": "239:474",
-      "name": "04 · Who decides what happened",
+      "name": "04 · Why Augur (Melo's homepage draft, 29 Oct 2026; Figma pending)",
       "text": [
         [
-          "239:478",
-          "Who decides\nwhat happened?"
+          "melo:why/1",
+          "Smart contracts"
         ],
         [
-          "239:480",
-          "Smart contracts can’t see the world. Whoever tells them what happened controls the money."
+          "melo:why/2",
+          "can't see the world."
         ],
         [
-          "240:432",
-          "With Augur, no party controls the answer."
+          "melo:why/3",
+          "Whoever controls the oracle decides who gets paid."
+        ],
+        [
+          "melo:why/4",
+          "With Augur, no one controls the oracle."
         ],
         [
           "239:485",
           "Permissionless"
         ],
         [
-          "239:486",
-          "Any app can ask a question. Anyone can report an answer or challenge one. No approval needed; fees and bonds apply."
+          "melo:why/5",
+          "Anyone can ask."
         ],
         [
-          "239:490",
-          "Decentralized"
+          "melo:why/6",
+          "Anyone can answer."
         ],
         [
-          "239:491",
-          "No committee, multisig or veto picks the answer. A fork is the last resort."
+          "melo:why/7",
+          "Ask, answer or push back. No one has to let you in."
         ],
         [
           "239:495",
           "Trustless"
         ],
         [
-          "239:496",
-          "Every report is backed by a bond. Forcing a false answer is designed to cost more than it could gain."
+          "melo:why/8",
+          "No governance."
+        ],
+        [
+          "melo:why/9",
+          "No multisigs."
+        ],
+        [
+          "melo:why/10",
+          "Trustless all the way: even Augur's creators can't overrule answers."
+        ],
+        [
+          "melo:why/11",
+          "Robust"
+        ],
+        [
+          "melo:why/12",
+          "Harder to game."
+        ],
+        [
+          "melo:why/13",
+          "Costlier to manipulate."
+        ],
+        [
+          "melo:why/14",
+          "Designed to cost attackers more than almost any other oracle."
+        ],
+        [
+          "melo:why/15",
+          "The answer is nobody's call."
+        ],
+        [
+          "melo:why/16",
+          "For traders"
+        ],
+        [
+          "melo:why/17",
+          "You've probably seen a market misresolve."
+        ],
+        [
+          "melo:why/18",
+          "Here, no authority decides the outcome."
+        ],
+        [
+          "melo:why/19",
+          "For builders"
+        ],
+        [
+          "melo:why/20",
+          "One bad resolution can turn into a PR disaster."
+        ],
+        [
+          "melo:why/21",
+          "With Augur Lituus, your team isn't the judge."
         ]
       ]
     },
     {
       "id": "135:255",
-      "name": "05 · What could you build",
+      "name": "05 · What can Augur Lituus power? (Melo's homepage draft, 29 Oct 2026; Figma pending)",
       "text": [
         [
-          "135:258",
-          "What could you build?"
+          "melo:use-cases/1",
+          "What can Augur Lituus power?"
         ],
         [
-          "135:259",
-          "Augur Lituus answers real-world questions.\nYour app decides what happens next."
+          "melo:use-cases/2",
+          "Any protocol or app that needs to know what happened in the world."
         ],
         [
           "I135:261;137:221",
           "Prediction markets"
         ],
         [
-          "I135:261;137:223",
-          "Settle a market."
-        ],
-        [
-          "I135:261;137:225",
-          "Settle positions on the final answer."
-        ],
-        [
-          "I135:261;403:1004;435:979",
-          "Market result"
-        ],
-        [
-          "I135:261;403:1004;435:982",
-          "Final answer"
-        ],
-        [
-          "I135:261;403:1004;435:983",
-          "Was the milestone demonstrated by the deadline?"
-        ],
-        [
-          "I135:261;403:1004;435:987",
-          "Asked"
-        ],
-        [
-          "I135:261;403:1004;435:990",
-          "Reported Yes"
-        ],
-        [
-          "I135:261;403:1004;435:993",
-          "Not challenged"
-        ],
-        [
-          "I135:261;403:1004;435:996",
-          "Final"
-        ],
-        [
-          "I135:261;403:1004;435:999",
-          "Yes"
-        ],
-        [
-          "I135:261;403:1004;435:1003",
-          "No"
-        ],
-        [
-          "I135:261;403:1004;435:1005",
-          "Invalid"
+          "melo:use-cases/3",
+          "Markets on any question with a result people can check: sports, elections, launches, weather or company news."
         ],
         [
           "I135:261;137:237",
           "Insurance & payments"
         ],
         [
-          "I135:261;137:238",
-          "“Was flight AB123 more than two hours late?”"
+          "melo:use-cases/4",
+          "Coverage and payments that trigger when something measurable happens: a delayed flight, a missed delivery, a storm or a canceled event."
         ],
         [
-          "I135:261;137:240",
-          "DAOs & grants"
+          "melo:use-cases/5",
+          "DAOs & governance"
         ],
         [
-          "I135:261;137:241",
-          "“Which team shipped a working prototype first?”"
+          "melo:use-cases/6",
+          "Upgrades and proposals checked against a DAO's written rules: its constitution and mission."
+        ],
+        [
+          "melo:use-cases/7",
+          "Markets on any question with a result people can check: sports, elections, launches, weather or company news."
+        ],
+        [
+          "melo:use-cases/8",
+          "Query"
+        ],
+        [
+          "I135:261;403:1004;435:987",
+          "Asked"
+        ],
+        [
+          "melo:use-cases/9",
+          "Reported"
+        ],
+        [
+          "I135:261;403:1004;435:996",
+          "Final"
+        ],
+        [
+          "melo:use-cases/10",
+          "Will this year be the hottest on record?"
+        ],
+        [
+          "melo:use-cases/11",
+          "Market"
+        ],
+        [
+          "melo:use-cases/12",
+          "64"
+        ],
+        [
+          "melo:use-cases/13",
+          "71"
+        ],
+        [
+          "melo:use-cases/14",
+          "86"
+        ],
+        [
+          "melo:use-cases/15",
+          "99"
+        ],
+        [
+          "melo:use-cases/16",
+          "¢"
+        ],
+        [
+          "melo:use-cases/17",
+          "$1"
+        ],
+        [
+          "melo:use-cases/18",
+          "Yes price"
+        ],
+        [
+          "melo:use-cases/19",
+          "Paid per Yes share"
         ],
         [
           "I135:261;137:249",
           "Augur Lituus"
         ],
         [
-          "I135:261;137:254",
-          "One oracle for every app."
+          "I135:261;403:1004;435:999",
+          "Yes"
+        ],
+        [
+          "melo:use-cases/20",
+          "Yes"
+        ],
+        [
+          "melo:use-cases/21",
+          "Waiting for a report"
+        ],
+        [
+          "melo:use-cases/22",
+          "Open to challenge"
+        ],
+        [
+          "I135:261;403:1004;435:993",
+          "Not challenged"
+        ],
+        [
+          "melo:use-cases/23",
+          "For builders"
+        ],
+        [
+          "melo:use-cases/24",
+          "Markets settle once the answer is final, and no one on the team has to decide who won. A challenged result is settled in the open, so it isn't the team's to defend."
+        ],
+        [
+          "melo:use-cases/25",
+          "Good for users."
+        ],
+        [
+          "melo:use-cases/26",
+          "Easier for projects."
+        ],
+        [
+          "melo:use-cases/27",
+          "Stay out of the middle."
+        ],
+        [
+          "melo:use-cases/28",
+          "Disputes settle in the open. The project never picks a side."
+        ],
+        [
+          "melo:use-cases/29",
+          "No team to hire."
+        ],
+        [
+          "melo:use-cases/30",
+          "Pay per question instead of running resolution in-house."
+        ],
+        [
+          "melo:use-cases/31",
+          "Win user trust."
+        ],
+        [
+          "melo:use-cases/32",
+          "Users can check and challenge independent outcomes."
+        ],
+        [
+          "melo:use-cases/33",
+          "Want Augur Lituus in a platform you use?"
+        ],
+        [
+          "melo:use-cases/34",
+          "Or one you're building?"
+        ],
+        [
+          "melo:use-cases/35",
+          "Talk to us"
         ]
       ]
     },
     {
       "id": "207:1590",
-      "name": "06 · How it works (website draft of 19 Oct 2026: REP panels under the steps, query details, the five question fields, the outcome board, one home per fact; Figma pending)",
+      "name": "06 · How it works (Melo's homepage draft, 29 Oct 2026; Figma pending)",
       "text": [
         [
           "draft:how/title",
           "Know what happened?\nGet paid to report it."
         ],
         [
-          "draft:how/lead",
-          "Every Augur Lituus answer comes from someone with REP at stake. Report the right outcome first to earn the reward, or challenge a wrong one to win 80% of its bond. A wrong call costs your bond."
+          "melo:how/1",
+          "Every Augur Lituus answer has REP staked behind it. Be right and you're paid. Be wrong and you lose your stake."
         ],
         [
-          "draft:how/step-1",
-          "A question opens"
+          "melo:how/2",
+          "1"
         ],
         [
-          "draft:how/step-1-text",
-          "Anyone can ask a multiple-choice question and pay a fee in REP. The fee funds a reward for reporting the right answer, and the reward grows the longer the question waits."
+          "melo:how/3",
+          "Ask"
         ],
         [
-          "draft:how/step-2",
-          "Report what happened"
+          "melo:how/4",
+          "Pay a fee in REP"
         ],
         [
-          "draft:how/step-3",
-          "Challenge a wrong answer"
+          "melo:how/5",
+          "2"
         ],
         [
-          "draft:how/step-4",
-          "Get paid when it's final"
+          "melo:how/6",
+          "Report"
         ],
         [
-          "draft:how/zone-1",
-          "Reward offered"
+          "melo:how/7",
+          "Stake on an answer"
         ],
         [
-          "draft:how/zone-1-stat",
-          "Up to 15 REP"
+          "melo:how/8",
+          "3"
         ],
         [
-          "draft:how/zone-1-stat-note",
-          "plus any tips"
+          "melo:how/9",
+          "Challenge"
         ],
         [
-          "draft:how/zone-1-min",
-          "0 REP"
+          "melo:how/10",
+          "Back another answer"
         ],
         [
-          "draft:how/zone-1-max",
-          "15 REP fee"
+          "melo:how/11",
+          "4"
         ],
         [
-          "draft:how/zone-1-caption",
-          "In the whitepaper's example, a reporter takes it at 2.5 REP after 12 hours."
+          "melo:how/12",
+          "Get paid"
         ],
         [
-          "draft:how/zone-1-note",
-          "Paid to whoever first reports the answer that becomes final."
+          "melo:how/13",
+          "If your answer holds"
         ],
         [
-          "I207:1597;145:236",
-          "Augur Lituus"
+          "melo:how/14",
+          "Anyone can ask."
         ],
         [
-          "I207:1597;145:240",
-          "Awaiting report"
+          "melo:how/15",
+          "A fee funds the reward."
         ],
         [
-          "I207:1597;145:249",
-          "Has room-temperature superconductivity been independently demonstrated at ambient pressure?"
+          "melo:how/16",
+          "The reward grows until someone reports what happened."
         ],
         [
-          "draft:how/cutoff",
-          "Information cutoff"
+          "melo:how/17",
+          "Ask"
         ],
         [
-          "draft:how/cutoff-date",
-          "8 Sep 2027, 00:00 UTC"
+          "melo:how/18",
+          "Say someone asks, \"Has room-temperature superconductivity been independently demonstrated at ambient pressure?\" They set the rules for judging it and pay a fee in REP. Part of it pays whoever first backs the right answer; the rest is burned. In this example, the fee is"
         ],
         [
-          "draft:how/details",
-          "Question details"
+          "melo:how/19",
+          "15 REP."
         ],
         [
-          "I207:1597;145:258",
-          "Possible outcomes"
+          "melo:how/20",
+          "Report"
+        ],
+        [
+          "melo:how/21",
+          "Anyone can report. Here, someone reports"
         ],
         [
           "I207:1597;145:261",
           "YES"
         ],
         [
-          "I207:1597;145:263",
-          "NO"
-        ],
-        [
-          "I207:1597;145:265",
-          "Invalid"
-        ],
-        [
-          "draft:how/outcome-yes-stake",
-          "0 REP"
-        ],
-        [
-          "draft:how/outcome-no-stake",
-          "0 REP"
-        ],
-        [
-          "draft:how/outcome-invalid-stake",
-          "0 REP"
-        ],
-        [
-          "I207:1597;387:880",
-          "Activity"
-        ],
-        [
-          "draft:how/ledger-1",
-          "Query opened"
+          "melo:how/22",
+          "and stakes"
         ],
         [
           "I207:1597;145:270",
           "15 REP"
         ],
         [
-          "draft:how/ledger-1-kind",
-          "fee"
+          "melo:how/23",
+          "on it, the same as the fee."
+        ],
+        [
+          "melo:how/24",
+          "Challenge"
+        ],
+        [
+          "melo:how/25",
+          "You think the reporter is wrong, so you challenge with"
+        ],
+        [
+          "I207:1597;145:263",
+          "NO"
+        ],
+        [
+          "melo:how/26",
+          "and stake"
+        ],
+        [
+          "melo:how/27",
+          "30 REP"
+        ],
+        [
+          "melo:how/28",
+          "on it, double theirs. The time to challenge starts again, and now anyone can challenge you."
+        ],
+        [
+          "melo:how/29",
+          "Get paid"
+        ],
+        [
+          "melo:how/30",
+          "No one challenges you in time, so the final answer is"
+        ],
+        [
+          "melo:how/31",
+          "NO. You get your 30 REP back, plus"
+        ],
+        [
+          "melo:how/32",
+          "12 REP"
+        ],
+        [
+          "melo:how/33",
+          "from the reporter's stake, plus"
+        ],
+        [
+          "melo:how/34",
+          "the reward. The other 3 REP of their stake is burned."
         ],
         [
           "draft:how/holder",
           "Holding REP?"
         ],
         [
-          "draft:how/holder-1",
-          "Optional. You never have to report or challenge."
+          "melo:how/35",
+          "How REP works"
         ],
         [
-          "draft:how/holder-2",
-          "In a fork, act. Move your REP to the universe you believe reflects reality, or it loses its value."
+          "melo:how/36",
+          "Earn REP"
         ],
         [
-          "I305:1612;29:7",
-          "Learn about REP"
+          "melo:how/37",
+          "Report or challenge when you know what happened, and get paid in REP when your answer holds."
+        ],
+        [
+          "melo:how/38",
+          "Stay in the loop"
+        ],
+        [
+          "melo:how/39",
+          "Holding is mostly hands-off. If a fork ever starts, there's a window to move your REP to the answer you believe in."
         ]
       ]
     },
@@ -471,77 +655,61 @@
     },
     {
       "id": "35:75",
-      "name": "09 · Learn more (website draft of 19 Oct 2026: three questions and the two latest posts, without type or date, each column ending on a button; Figma pending)",
+      "name": "09 · Learn more (Melo's homepage draft, 29 Oct 2026; Figma pending)",
       "text": [
         [
-          "draft:learn/title",
-          "Learn more about Augur."
+          "melo:learn/1",
+          "Keep going."
         ],
         [
-          "166:1078",
-          "Frequently asked questions"
+          "melo:learn/2",
+          "Answers, updates and the people around Augur."
         ],
         [
-          "I166:1081;166:559;166:522",
-          "How does today’s Augur relate to its earlier prediction markets?"
+          "melo:learn/3",
+          "FAQ"
         ],
         [
-          "I166:1081;166:559;166:527",
-          "Augur launched on Ethereum in 2018 as a decentralized prediction market protocol, with REP holders settling disputed outcomes. Augur v2 still runs today, and in August 2026 its fork mechanism completed its first live run. Augur Lituus, the next generation of Augur’s oracle, is designed to resolve questions for other prediction markets and applications, not only Augur’s own."
+          "melo:learn/4",
+          "Plain answers on markets, REP and how questions get settled."
         ],
         [
-          "I166:1081;166:559;166:530",
-          "Moon Fork report"
+          "melo:learn/5",
+          "Blog"
         ],
         [
-          "I166:1081;166:579;166:542",
-          "What role does REP play?"
+          "melo:learn/6",
+          "Progress reports, research and design notes from the team."
         ],
         [
-          "I166:1081;166:619;166:542",
-          "What if the question cannot be answered?"
+          "melo:learn/7",
+          "Community"
         ],
         [
-          "draft:learn/faq-all",
-          "View all questions"
-        ],
-        [
-          "35:80",
-          "From the blog"
-        ],
-        [
-          "154:778",
-          "Why disagreement makes\nan oracle stronger"
-        ],
-        [
-          "154:779",
-          "How bonds and open challenges reward honest reporting."
-        ],
-        [
-          "154:793",
-          "Writing questions an oracle can answer"
-        ],
-        [
-          "I156:405;29:7",
-          "View all posts"
+          "melo:learn/8",
+          "Ask questions, share ideas and follow the build on Discord."
         ]
       ]
     },
     {
       "id": "37:91",
-      "name": "11 · Footer / contact",
+      "name": "11 · Footer / contact (Melo's homepage draft, 29 Oct 2026; Figma pending)",
       "text": [
         [
           "167:839",
           "Talk to the Augur team."
         ],
         [
-          "167:840",
-          "Tell us what your application needs, ask about the protocol, or share feedback."
+          "melo:footer/1",
+          "Ask about the protocol or share feedback. Building on it? Tell us what your project needs."
         ],
         [
           "I167:841;29:4",
           "Talk to us"
+        ],
+        [
+          "167:962",
+          "contact@augur.net"
         ],
         [
           "174:838",
@@ -556,20 +724,12 @@
           "Email address"
         ],
         [
-          "I174:841;38:95",
-          "you@example.com"
-        ],
-        [
           "I174:845;29:7",
           "Subscribe"
         ],
         [
           "167:961",
           "Augur’s work is funded and coordinated by the Lituus Foundation."
-        ],
-        [
-          "167:962",
-          "contact@augur.net"
         ],
         [
           "167:964",
@@ -646,6 +806,10 @@
         [
           "167:988",
           "GitHub ↗"
+        ],
+        [
+          "I174:841;38:95",
+          "you@example.com"
         ]
       ]
     }

@@ -3,15 +3,13 @@ import Brand from '../primitives/Brand.astro';
 import Icon from '../primitives/Icon.astro';
 import Button from '../primitives/Button.astro';
 import {navigation,navigationGroups,type NavigationItem} from '../../data/navigation';
-import {ownerChrome} from '../../data/homepage-review';
 import {chromeInline} from '../home/review-inline';
 const groups=[{label:'Products',variant:'products',items:navigation.products},{label:'Resources',variant:'resources',items:navigation.resources},{label:'Community',variant:'community',items:navigation.community}];
 const path=Astro.url.pathname;
-// Melo's chrome, on every page but "/" (ownerChrome in homepage-review.ts; chrome-v2.css): Resources rows
+// Melo's chrome, on every page (chrome-v2.css): Resources rows
 // take Augur's square mark instead of pictograms (community logos stay), the Products lead card is itself
 // the link with no button inside it, the header hides on the way down and returns on the way up, and the
 // phone buttons read "Menu" and "Close".
-const own=ownerChrome(path);
 // Current section: a page and everything below it (blog posts under /blog/).
 const within=(href:string)=>{const page=href.split('#')[0]!;return !href.startsWith('http')&&page!=='/'&&path.startsWith(page);};
 const isCurrent=(href:string)=>within(href)&&!href.includes('#');
@@ -24,17 +22,13 @@ const isCurrent=(href:string)=>within(href)&&!href.includes('#');
       <a href="/about/" class="nav-item nav-link" aria-current={isCurrent('/about/')?'page':undefined} data-current={within('/about/')?'':undefined}><span class="nav-item-label">About</span></a>
       {groups.map((group,index)=><details class="nav-disclosure" name="site-nav" data-nav-disclosure data-current={group.items.some(item=>within(item.href))?'':undefined}>
         <summary class="nav-item" aria-controls={`nav-${index}`} aria-expanded="false"><span class="nav-item-label">{group.label}</span><Icon name="chevron-down" class="nav-chevron"/></summary>
-        <div class="nav-panel" id={`nav-${index}`} data-variant={group.variant}><ul>{group.items.map((entry)=>{const item=entry as NavigationItem;const glyph=own?item.logo:item.logo??item.icon;
-          // The lead card's one link is its action; the whole card is its hit area. On /2/ the card itself
-          // is the link: no button inside it, its action a text label at its foot.
-          if(item.cta&&own)return <li class="nav-lead"><a href={item.href} aria-current={isCurrent(item.href)?'page':undefined}>
+        <div class="nav-panel" id={`nav-${index}`} data-variant={group.variant}><ul>{group.items.map((entry)=>{const item=entry as NavigationItem;const glyph=item.logo;
+          // The lead card is itself the link, its whole surface the hit area: no button inside it, its action
+          // a text label at its foot.
+          if(item.cta)return <li class="nav-lead"><a href={item.href} aria-current={isCurrent(item.href)?'page':undefined}>
             <span class="nav-feature-head"><span class="nav-mark" aria-hidden="true"></span><span class="nav-text"><span class="nav-label">{item.label}</span><span class="nav-description">{item.description}</span></span></span>
             <span class="nav-lead-action"><span class="nav-lead-label">{item.cta}</span><Icon name="arrow-right" class="nav-lead-arrow"/></span>
           </a></li>;
-          if(item.cta)return <li class="nav-feature">
-            <span class="nav-feature-head"><span class="nav-mark" aria-hidden="true"></span><span class="nav-text"><span class="nav-label">{item.label}</span><span class="nav-description">{item.description}</span></span></span>
-            <a class="nav-cta" href={item.href} aria-current={isCurrent(item.href)?'page':undefined}>{item.cta}<Icon name="arrow-right" class="nav-cta-arrow"/></a>
-          </li>;
           return <li><a href={item.href} aria-current={isCurrent(item.href)?'page':undefined}>
           {glyph?<Icon name={glyph} class="nav-glyph"/>:<span class="nav-mark" aria-hidden="true"></span>}
           <span class="nav-text"><span class="nav-label">{item.label}</span>{item.description&&<span class="nav-description">{item.description}</span>}</span>
@@ -42,15 +36,15 @@ const isCurrent=(href:string)=>within(href)&&!href.includes('#');
         </a></li>;})}</ul></div>
       </details>)}
     </nav>
-    <div class="header-actions"><Button href="/contact/" variant="outline">Talk to us</Button>{own?<button class="mobile-open" type="button" aria-controls="mobile-navigation" aria-expanded="false" data-mobile-open>Menu</button>:<button class="mobile-open" type="button" aria-label="Open navigation" aria-controls="mobile-navigation" aria-expanded="false" data-mobile-open><Icon name="list" /></button>}</div>
+    <div class="header-actions"><Button href="/contact/" variant="outline">Talk to us</Button><button class="mobile-open" type="button" aria-controls="mobile-navigation" aria-expanded="false" data-mobile-open>Menu</button></div>
   </div>
   <dialog id="mobile-navigation" class="mobile-navigation" aria-labelledby="mobile-nav-title">
-    <div class="mobile-top"><a href="/" aria-label="Augur home"><Brand/></a><h2 id="mobile-nav-title" class="sr-only">Navigation</h2><button type="button" aria-label="Close navigation" data-mobile-close>{own?'Close':<Icon name="x"/>}</button></div>
+    <div class="mobile-top"><a href="/" aria-label="Augur home"><Brand/></a><h2 id="mobile-nav-title" class="sr-only">Navigation</h2><button type="button" aria-label="Close navigation" data-mobile-close>Close</button></div>
     <nav aria-label="Mobile navigation">{navigationGroups.map(group=><div class="mobile-group"><h3>{group.label}</h3><ul>{group.items.map(item=><li><a href={item.href}>{(item as NavigationItem).logo&&<Icon name={(item as NavigationItem).logo!} class="social-logo"/>}{item.label}{('external' in item && item.external)&&<Icon name="arrow-up-right"/>}</a></li>)}</ul></div>)}</nav>
   </dialog>
   <noscript><nav class="fallback-nav" aria-label="Navigation">{navigationGroups.flatMap(group=>group.items).map(item=><a href={item.href}>{item.label}{('external' in item && item.external)?' ↗':''}</a>)}</nav></noscript>
 </header>
-{own&&<script is:inline set:html={chromeInline.header}></script>}
+<script is:inline set:html={chromeInline.header}></script>
 <script>import {initNavigation} from '../../motion/disclosure-nav';initNavigation();</script>
 <style>
 .site-header{height:96px;background:var(--background);position:relative;z-index:20}
@@ -120,20 +114,8 @@ ul{list-style:none;padding:0;margin:0}
 .nav-panel[data-variant=products] ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:12px}
 .nav-panel[data-variant=products] li{display:flex}.nav-panel[data-variant=products] li>a{flex:1;padding:20px 16px}
 .nav-panel[data-variant=products] .nav-description{font-size:14px;line-height:20px}
-.nav-feature{grid-row:span 2;position:relative;flex-direction:column;gap:32px;padding:20px;transition:background-color 140ms ease-out}
 .nav-feature-head{display:flex;gap:12px;align-items:flex-start}
-.nav-feature .nav-label{font:600 20px/26px var(--font-heading)}
-.nav-feature .nav-mark{margin:9px 0 0;background:var(--primary)}
-.nav-panel .nav-feature .nav-cta{position:static;margin:auto 0 0;min-height:48px;justify-content:center;align-items:center;gap:12px;padding:11px 24px;border:1px solid transparent;font:600 16px/24px var(--font-heading);background:var(--primary);color:var(--primary-foreground)}
-.nav-cta::after{content:'';position:absolute;inset:0}
-.nav-cta-arrow{transition:transform 200ms var(--ease-reveal)}
-.nav-feature:hover{background:var(--web-raised)}
-.nav-panel .nav-feature:hover .nav-cta,.nav-panel .nav-feature .nav-cta:focus-visible{background:var(--web-action-hover)}
-.nav-panel .nav-feature .nav-cta:active{background:var(--web-action-pressed)}
-.nav-panel .nav-feature .nav-cta:focus-visible{outline-offset:2px}
-.nav-feature:hover .nav-cta-arrow,.nav-cta:focus-visible .nav-cta-arrow{transform:translateX(3px)}
-.nav-feature:hover .nav-mark,.nav-feature:focus-within .nav-mark{transform:rotate(45deg) scale(.9)}
-@media(prefers-reduced-motion:reduce){.nav-item::after,.nav-item :global(.nav-chevron),.nav-panel a,.nav-glyph,.nav-mark,.nav-external,.nav-feature,.nav-cta-arrow,[data-nav-enhanced] .nav-highlight{transition:none}.nav-panel{animation:none}}
+@media(prefers-reduced-motion:reduce){.nav-item::after,.nav-item :global(.nav-chevron),.nav-panel a,.nav-glyph,.nav-mark,.nav-external,[data-nav-enhanced] .nav-highlight{transition:none}.nav-panel{animation:none}}
 .header-actions{display:flex;gap:16px;align-items:center}.mobile-open{display:none}
 .mobile-navigation{position:fixed;inset:0;margin:0;width:100%;max-width:none;height:100svh;max-height:none;padding:24px;background:var(--background);color:var(--foreground);border:0;overflow-y:auto}
 .mobile-navigation::backdrop{background:var(--background)}.mobile-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:40px}

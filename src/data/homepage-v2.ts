@@ -77,22 +77,10 @@ export const homeV2 = {
     // Ryan 9, verbatim: one sentence; "It asks a question and acts on the answer." goes (the cases show it).
     lead: 'Any protocol or app that needs to know what happened in the world.',
     // Ryan 10: the DAO case checks an upgrade against the DAO's own rules, so the DAO stays open-ended
-    // and its developers can't push through a change that breaks them (a rug). Spread over v1's case in
-    // Applications.astro (id, icon, title, outcomes and the gate picture keep one source). The paper
-    // frames questions as checkable facts (§5 p12 "objective ground truth"; an unresolvable one resolves
-    // Invalid, §4.0.1 p3), so the question points at a written rule, not at a reading of the mission.
-    // Yes now blocks: the picked Green chip comes first, as in the other two cases. `labels` relabel the
-    // gate picture to match (this upgrade stops at the check; another change passes it and goes live).
+    // and its developers can't push through a change that breaks them (a rug). Spread over the shared case in
+    // Applications.astro (id and title keep one source); the card itself is `cards.governance` below.
     governance: {
       summary: 'Upgrades and proposals checked against a DAO’s written rules: its constitution and mission.',
-      question: 'Does this upgrade break a rule in the DAO’s constitution?', answer: 'Yes',
-      // Reads "Decided in the open, not by the upgrade’s own developers." (as "the market’s own team").
-      notBy: 'the upgrade’s own developers',
-      action: 'Block the upgrade.',
-      // The second lane of the picture, and Ryan's "DAOs stay open-ended", in one plain line (one line from
-      // 1024 up; "Changes that follow the constitution…" left "go live." alone at 1024).
-      explanation: 'Changes within the constitution can still go live.',
-      labels: { lanes: ['This upgrade', 'Another change'], at: 'Constitution check' },
     },
     // Ryan 11 (X) + Augus 1: the builder block stays, rewritten from Augus's note. Reasons in Ryan 8's
     // order: less liability first (the backlash over a bad resolution lands on whoever decided it), less

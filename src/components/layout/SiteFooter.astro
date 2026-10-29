@@ -10,9 +10,9 @@ const email=links.contact.url.replace(/^mailto:/,'');
 // Both rows sit on the site's 500 / 80 / 668 heading grid, so the newsletter and the first
 // link column share one edge with every section above. One footer nav landmark; every
 // footer heading is an h2, a peer of the contact title rather than nested under it.
-// On the homepage's review copies the footer settles in as one group, with no stagger (reveal-v2.js); every other
-// page, "/" included, renders it unchanged.
-const reveal=variantAt(Astro.url.pathname)!=='v1'?'':undefined;
+// On the homepage the footer settles in as one group, with no stagger (reveal-v2.js); every other page renders
+// it unchanged.
+const reveal=variantAt(Astro.url.pathname)?'':undefined;
 ---
 <footer class="site-footer" data-reveal={reveal}>
   <div class="contact-band">

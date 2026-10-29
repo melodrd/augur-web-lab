@@ -1,14 +1,12 @@
-// Homepage version switch (owner, 21 Oct 2026; a list since 26 Oct 2026), inlined right after its nav on "/"
-// and every review copy.
+// Homepage version switch (owner, 21 Oct 2026; a list since 26 Oct 2026), inlined right after its nav on every
+// homepage version.
 // Each link carries the section in view, so switching lands on the same part of the other version:
 // the last anchor whose top is in the top third of the screen. Only anchors that every version
 // renders are listed, so a carried anchor always resolves. A block only some versions have (Ryan's links
 // under the hero, the builder block) carries the nearest shared anchor above it, or none above Why Augur,
 // which opens the other version at the top. Without JavaScript the links open each version at the top.
 // How it works carries its heading, #how-heading, so a reader at the section (or at Holding REP?,
-// further down it) lands on the closed section instead of on the example, which any arrival at
-// #how-it-works opens. #how-it-works is carried only while "/"'s always-open walkthrough crosses the
-// middle of the screen, so a reader in it lands on the section in the other version.
+// further down it) lands on the section rather than on its example.
 // The list closes on Escape (focus returns to the version's name) and on a press outside the switch.
 // The switch stays in view at all times (owner, 22 Oct 2026). It steps aside only while a focused control
 // lies under it (data-cover). Focus inside it, or its open list, always shows it (CSS).
@@ -16,15 +14,13 @@
   const nav = document.currentScript?.previousElementSibling;
   if (!nav) return;
   const menu = nav.querySelector('[data-vs-menu]');
-  const ids = ['why-augur', 'applications-heading', 'how-heading', 'how-it-works', 'roadmap', 'learn-more', 'contact-title'];
+  const ids = ['why-augur', 'applications-heading', 'how-heading', 'roadmap', 'learn-more', 'contact-title'];
   const carry = () => {
     let id = '';
-    const third = innerHeight / 3, demo = document.getElementById('how-demo');
+    const third = innerHeight / 3;
     for (const at of ids) {
-      const walk = at === 'how-it-works', el = walk ? (demo && demo.hidden ? null : document.querySelector('[data-walkthrough]')) : document.getElementById(at);
-      if (!el) continue;
-      const box = el.getBoundingClientRect();
-      if (walk ? box.top <= innerHeight / 2 && box.bottom > innerHeight / 2 : box.top <= third) id = at;
+      const el = document.getElementById(at);
+      if (el && el.getBoundingClientRect().top <= third) id = at;
     }
     nav.querySelectorAll('[data-vs-link]').forEach(link => { link.hash = id; });
   };

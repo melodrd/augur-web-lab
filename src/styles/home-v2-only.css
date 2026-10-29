@@ -26,8 +26,6 @@
 @media(max-width:1023px){.home-v2 .case-mark{margin-top:0}}
 @media(forced-colors:active){.home-v2 .case-mark::after{forced-color-adjust:none;background:CanvasText}.home-v2 .case-tab[aria-selected="true"] .case-mark::after{background:Highlight}}
 @media(prefers-reduced-motion:reduce){.home-v2 .case-mark::after{transition:none}}
-/* The answer chip draws the check glyph's own path (assets/icons/augur/check.svg) at its stroke. */
-.home-v2 .case-pick .case-check polyline{stroke-width:1.75;stroke-linecap:square;stroke-linejoin:miter}
 /* The builder reasons have no icon tiles: stacked, each is its claim over its point. */
 @media(max-width:1023px){.home-v2 .builder-case .builder-reasons li{grid-template-columns:minmax(0,1fr)}}
 
@@ -475,12 +473,6 @@
    unchanged. */
 @media(min-width:1024px) and (max-height:700px){.home-v2 .home-hero{padding-block:24px}.home-v2 .home-hero .display{font-size:clamp(40px,min(5vw,10svh),72px)}}
 
-/* Performance (22 Oct 2026, measured): the closed How it works example is hidden="until-found", so its
-   contents are skipped, yet the query card's status dot kept pulsing inside it, and every pulse made the
-   browser update that skipped subtree: about 1 s of main-thread work per 4 s at the Why Augur cards. The
-   dot rests while the example is closed and pulses again when it opens. (/3/ and /4/ share the issue.) */
-.home-v2 .how-it-works [data-how-demo][hidden] .status-dot{animation:none}
-
 /* How it works (item 4; owner, 25 Oct 2026: "build A on /2", sketch A of the item 4 board, after the four cards'
    Green line read as weird and the cards didn't answer the pointer). HowItWorks.astro renders the heading row, then
    the four steps as tabs beside one Navy stage, then the section's one button, the example it opens and Holding REP
@@ -567,8 +559,6 @@
 .home-v2 .holding-title{margin:0;font:600 24px/32px var(--font-heading);letter-spacing:-.01em}
 .home-v2 .holding-points{display:grid;grid-template-columns:minmax(0,500fr) minmax(0,668fr);column-gap:80px;row-gap:24px;margin:0;padding:0;list-style:none}
 .home-v2 .holding-point{display:grid;grid-template-columns:8px minmax(0,1fr);column-gap:16px;align-items:start}
-.home-v2 .holding-mark{width:8px;height:8px;margin-top:9px;background:var(--muted-foreground)}
-.home-v2 .holding-point.is-act .holding-mark{background:transparent;box-shadow:inset 0 0 0 1.5px var(--primary)}
 .home-v2 .holding-point p{margin:0;font-size:16px;line-height:24px;color:var(--muted-foreground);text-wrap:pretty}
 .home-v2 .holding-point strong{display:block;margin-bottom:4px;font:600 18px/26px var(--font-heading);color:var(--foreground)}
 /* Holding REP as one Navy card (owner, 29 Oct 2026, round 5 of the Holding REP board: text alone "looks weird"),
@@ -632,9 +622,7 @@
 .home-v2 .how-path-tab[aria-selected="true"] .how-path-index{forced-color-adjust:none;outline:0;background:Highlight;color:HighlightText}
 .home-v2 .how-path-rail{forced-color-adjust:none;background:Highlight}
 .home-v2 .how-path-tab:not(:last-child)::before{forced-color-adjust:none;background:CanvasText}
-.home-v2 .holding-mark{forced-color-adjust:none;background:CanvasText}
 .home-v2 .example{outline:1px solid CanvasText}
-.home-v2 .holding-point.is-act .holding-mark{background:Canvas;box-shadow:inset 0 0 0 1.5px Highlight}
 .home-v2 .holding.has-labels{outline:1px solid CanvasText}
 .home-v2 .paid-mark{forced-color-adjust:none;background:Highlight}
 }

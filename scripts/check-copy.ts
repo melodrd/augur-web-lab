@@ -9,14 +9,12 @@ function normalize(value: string): string {
     .replace(/\s+/g, ' ').replace(/\s+([.,!?;:])/g, '$1').trim();
 }
 
-// Independent read-only Figma extraction, not imported from the rendering data. Section 06
-// holds the website draft of 19 Oct 2026 (REP folded in) and section 09 the Learn more draft (blog and FAQ merged) until Figma is updated.
-// Compare the default desktop state; state transitions have separate browser QA.
+// The copy source (homepage-copy-source.json) is kept apart from the rendering data. Since Melo's version became
+// the homepage (29 Oct 2026) it holds that page's draft copy; text that is unchanged keeps its Figma 28:7 node or
+// earlier draft id. Compare the default desktop state; state transitions have separate browser QA.
 const selectors = ['.announcement', '.site-header', '.home-hero', '.tenets', '.applications', '.how-it-works', '.roadmap', '.home-learn', '.site-footer'];
 const excluded = [
-  'script', 'style', 'svg', 'noscript', '[hidden]', '.sr-only', 'dialog', '.nav-panel',
-  '.application-tab[aria-selected="true"] .app-question', '.app-plus', '.roadmap-plus',
-  '.walkthrough-steps [aria-selected="false"] .step-description',
+  'script', 'style', 'svg', 'noscript', '[hidden]', '.sr-only', 'dialog', '.nav-panel', '.roadmap-plus',
   'details:not([open]) > div',
 ];
 const html = await readFile(process.argv[2] ?? 'dist/index.html', 'utf8');
@@ -61,4 +59,4 @@ for (const [index, section] of sections.entries()) {
   }
 }
 if (failures) process.exitCode = 1;
-else console.log(`Homepage copy: ${passageCount} visible text passages across all ${sections.length} sections match Figma 28:7, including the restored newsletter field; no extra copy.`);
+else console.log(`Homepage copy: ${passageCount} visible text passages across all ${sections.length} sections match the copy source, including the restored newsletter field; no extra copy.`);

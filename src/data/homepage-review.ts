@@ -1,8 +1,8 @@
 /** The homepage's versions: which exist, the copy each reads, where each lives, and their order.
  * src/pages/[...version].astro renders every one from `reviewVersions`, and the version switch lists them
  * in this order. Since 29 Oct 2026 (owner: "remove the live homepage keep only the other three … melo is
- * the default one") Melo's version is the homepage at "/" and comes first; v1, the live homepage, renders
- * nowhere, and /melo/ and the old numbered paths redirect in vercel.json. Augus's notes live in Ryan +
+ * the default one") Melo's version is the homepage at "/" and comes first; v1, the live homepage, and its code are
+ * gone, and /melo/ and the old numbered paths redirect in vercel.json. Augus's notes live in Ryan +
  * Augus, and /augus/ redirects there (owner, 29 Oct 2026: "Remove the Augus only version"):
  * - / (v2): the owner's version: Ryan's notes as Augus marked them, with fact checks, wording fixes
  *   and the owner's own design (homepage-v2.ts).
@@ -14,18 +14,29 @@
  * Every version shares one UI system (owner, 26 Oct 2026: "all versions should now be similar to v2 in
  * terms of animations/motions/structure. except UI changes suggested by the team"): the v2 markup,
  * home-v2.css, home-v2-only.css and v2's scripts, so the comparison is about each reviewer's notes, not
- * polish. A component branches on the family: it asks `homeCopy(variant)` and renders the review markup
- * when that returns a copy (every version but v1), v1's literal markup otherwise, so "/" stays
- * byte-identical. A field only some versions have (Ryan's hero links and "?" tips, the builder block)
- * is tested where it is read: `'field' in copy.section`. `pageClass` gives <main> its classes: every
- * version has "home-v2", and Ryan's adds "home-v3", which his sheet (home-v3.css) prefixes every rule
- * with. */
+ * polish. A component asks `homeCopy(variant)` for the version's copy. A field only some versions have
+ * (Ryan's hero links and "?" tips, the builder block) is tested where it is read: `'field' in
+ * copy.section`. `pageClass` gives <main> its classes: every version has "home-v2", and Ryan's adds
+ * "home-v3", which his sheet (home-v3.css) prefixes every rule with.
+ * The UI carries the owner's design on top of each version's copy (every version since 26 Oct 2026; the
+ * owner's version alone from 22 Oct). Its styles are home-v2-only.css (review-inline.ts):
+ * - Icons, signals only: Augur's square-cut glyphs (assets/icons/augur) replace Phosphor's arrows,
+ *   chevron, close, check and plus; pictograms give way to Augur's square mark or nothing; the phone
+ *   menu buttons read "Menu" and "Close"; the community logos stay Phosphor. These and the header and
+ *   footer rules below are Melo's chrome, on every page (chrome-v2.css).
+ * - The header logo at 128 px, a brand exception (CSS only).
+ * - The Products lead card as one link, its action a text label, with no button inside it.
+ * - The header hides while scrolling down and comes back on any scroll up (header-v2.js).
+ * - The Why Augur cards draw isometric scenes (IsoScene.astro, tenets-iso.ts and its scene modules,
+ *   tenets-iso-v2.js), under the closer's two readers.
+ * - The hero draws the lituus flock (FlockArt.astro, hero-flock.ts, hero-flock-v2.js), and from 1024 px
+ *   its live floor.
+ * - The use cases as product cards, How it works as four steps over one stage, and Learn more's doors. */
 import {homeV2} from './homepage-v2';
 import {homeV3} from './homepage-v3';
 import {homeV4} from './homepage-v4';
 
-export type HomeVariant = 'v1' | 'v2' | 'v3' | 'v4';
-export type ReviewVariant = Exclude<HomeVariant, 'v1'>;
+export type ReviewVariant = 'v2' | 'v3' | 'v4';
 
 // One list for the route's getStaticPaths and the switch's links, in the switch's order. `blurb` is the
 // switch's one line on whose notes a version shows.
@@ -40,32 +51,14 @@ export type ReviewVersion = (typeof reviewVersions)[number]['version'];
  * checks that vercel.json redirects each version's slashless name to its path. */
 export const homePaths: readonly string[] = reviewVersions.map(({ path }) => path);
 
-const copies = { v1: undefined, v2: homeV2, v3: homeV3, v4: homeV4 } as const;
-/** The version's copy, or undefined for v1 (which keeps its copy in the components). */
-export const homeCopy = (variant: HomeVariant) => copies[variant];
+const copies = { v2: homeV2, v3: homeV3, v4: homeV4 } as const;
+/** The version's copy. */
+export const homeCopy = <V extends ReviewVariant>(variant: V) => copies[variant];
 
-const classes = { v1: undefined, v2: 'home-v2', v3: 'home-v2 home-v3', v4: 'home-v2' } as const;
-/** <main>'s class: none on "/", so v1's markup is unchanged. */
-export const pageClass = (variant: HomeVariant) => classes[variant];
+const classes = { v2: 'home-v2', v3: 'home-v2 home-v3', v4: 'home-v2' } as const;
+/** <main>'s class. */
+export const pageClass = (variant: ReviewVariant) => classes[variant];
 
-/** The review UI: every review version since 26 Oct 2026 (it was the owner's version alone from 22 Oct).
- * It carries the owner's design on top of each version's copy; "/" keeps what ships, so it stays
- * byte-identical. Their styles are home-v2-only.css, which every review version loads (review-inline.ts):
- * - Icons, signals only: Augur's square-cut glyphs (assets/icons/augur) replace Phosphor's arrows,
- *   chevron, close, check and plus; pictograms give way to Augur's square mark or nothing; the phone
- *   menu buttons read "Menu" and "Close"; the community logos stay Phosphor.
- * - The header logo at 128 px, a brand exception (CSS only).
- * - The Products lead card as one link, its action a text label, with no button inside it.
- * - The header hides while scrolling down and comes back on any scroll up (header-v2.js).
- * - The Why Augur cards draw isometric scenes (IsoScene.astro, tenets-iso.ts and its scene modules,
- *   tenets-iso-v2.js), under the closer's two readers.
- * - The hero draws the lituus flock in place of the square field (FlockArt.astro, hero-flock.ts,
- *   hero-flock-v2.js), and from 1024 px its live floor.
- * - The use cases as product cards, How it works as four steps over one stage, and Learn more's doors
- *   where a version's copy has them. */
-export const ownerVersion = (variant: HomeVariant) => variant !== 'v1';
-/** Melo's chrome, its header, footer and square-cut signals (owner, 26 Oct 2026: "Bring Melo's header and
- * footer … to every inner page"): every page, "/" too since Melo's version became the homepage (29 Oct 2026). */
-export const ownerChrome = (_pathname: string) => true;
-/** The homepage version a path renders, for components without a variant prop (Icon, SiteHeader). */
-export const variantAt = (pathname: string): HomeVariant => reviewVersions.find(({ path }) => pathname === path)?.variant ?? 'v1';
+/** The homepage version a path renders, or undefined off the homepage, for components without a variant
+ * prop (SiteFooter). */
+export const variantAt = (pathname: string): ReviewVariant | undefined => reviewVersions.find(({ path }) => pathname === path)?.variant;

@@ -18,10 +18,9 @@ const {variant,noindex}=Astro.props;
 <PageLayout noindex={noindex} class={pageClass(variant)}>
  <slot name="version" slot="version"/><slot name="end" slot="end"/><Hero variant={variant}/><Tenets variant={variant}/><Applications variant={variant}/><HowItWorks variant={variant}/><Roadmap variant={variant}/><LearnMore variant={variant}/>
  <script>
-  // These sections exist only here, so the page starts them once from one script; each init
-  // finds its own sections. One entry instead of five identical ones keeps the JavaScript budget.
-  import {initAnswerRibbon,initTenets,initRepZone} from '../../motion/home-art';
-  import {initHomeInteractions} from '../../motion/home-interactions';
-  initAnswerRibbon();initTenets();initHomeInteractions();initRepZone();
+  // The shared tabs controller binds the use cases, How it works' steps and the roadmap once; each
+  // section's own motion is its inline script (review-inline.ts).
+  import {setupAllTabs} from '../../motion/tabs';
+  setupAllTabs();
  </script>
 </PageLayout>

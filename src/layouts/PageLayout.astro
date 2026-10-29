@@ -5,18 +5,18 @@ import AnnouncementBar from '../components/layout/AnnouncementBar.astro';
 import SiteHeader from '../components/layout/SiteHeader.astro';
 import SiteFooter from '../components/layout/SiteFooter.astro';
 import {chromeInline} from '../components/home/review-inline';
-import {homePaths,ownerChrome} from '../data/homepage-review';
+import {homePaths} from '../data/homepage-review';
 interface Props { title?:string; description?:string; image?:string; article?:boolean; noindex?:boolean; footer?:boolean; class?:string; }
 const {footer=true,class:className,...metadata}=Astro.props;
-// The "version" slot (the homepage review switch, [version].astro) comes before the announcement bar:
+// The "version" slot (the homepage version switch, [...version].astro) comes before the announcement bar:
 // dismissing the bar slides every element after it, and its state script reads the element before it.
-// Melo's chrome (owner, 26 Oct 2026): every inner page renders its sheet in the same place and hashes the
-// sheet and the header's script here, before the head streams. The review copies carry both with their own
-// strings ([version].astro), and "/" gets neither, so it stays byte-identical.
-// The "end" slot comes after the footer: the review copies' section reveal ([version].astro) runs once every section
-// and the footer are parsed. Every other page leaves it empty.
+// Melo's chrome (owner, 26 Oct 2026): every other page renders its sheet in the same place and hashes the
+// sheet and the header's script here, before the head streams; the homepage versions carry both with their
+// own strings ([...version].astro).
+// The "end" slot comes after the footer: the homepage's section reveal ([...version].astro) runs once every
+// section and the footer are parsed. Every other page leaves it empty.
 const path=Astro.url.pathname;
-const chrome=ownerChrome(path)&&!homePaths.includes(path);
+const chrome=!homePaths.includes(path);
 const sha=(text:string)=>`sha256-${createHash('sha256').update(text).digest('base64')}` as const;
 if(chrome){Astro.csp?.insertStyleHash(sha(chromeInline.style));Astro.csp?.insertScriptHash(sha(chromeInline.header));}
 ---
