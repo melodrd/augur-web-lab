@@ -71,11 +71,14 @@ const check=signals?'4.5 10.5 8.25 14.25 15.5 7':'40 144 96 200 224 72';
 // screen readers, so no JavaScript, reduced motion and print show the end. Before the report Augur Lituus's
 // value is empty, never a dash (owner, 28 Oct 2026).
 const cards=signals&&copy&&'cards' in copy.applications?copy.applications.cards:undefined;
+// The review copies' section reveal (reveal-v2.js): the heading, the lead, the picker and the card stage as one group,
+// then the builder block. The card's loop starts once the group has landed. Undefined on "/", so v1's markup stays.
+const reveal=signals?'':undefined;
 ---
 <section class="applications section" aria-labelledby="applications-heading">
  <div class="container">
-  <div class="section-heading"><h2 id="applications-heading">What can Augur&nbsp;Lituus power?</h2>{copy?<p class="lead">{copy.applications.lead}</p>:<p class="lead">Any app that needs to know what happened in the world.<br/>It asks a question and acts on the answer.</p>}</div>
-  <div class="cases" data-tabs data-applications={cards?undefined:''} data-use-cases={cards?'':undefined} data-panel-swap data-activation={cards?'automatic':'manual'} data-active="0">
+  <div class="section-heading"><h2 id="applications-heading" data-reveal={reveal}>What can Augur&nbsp;Lituus power?</h2>{copy?<p class="lead" data-reveal={reveal}>{copy.applications.lead}</p>:<p class="lead">Any app that needs to know what happened in the world.<br/>It asks a question and acts on the answer.</p>}</div>
+  <div class="cases" data-tabs data-applications={cards?undefined:''} data-use-cases={cards?'':undefined} data-panel-swap data-activation={cards?'automatic':'manual'} data-active="0" data-reveal={reveal}>
    <div class="case-tabs" role="tablist" aria-label="Use cases" aria-orientation="vertical" style={`--count:${cases.length}`}>
     {cases.map((app,i)=><button type="button" role="tab" id={`application-tab-${app.id}`} aria-controls={`application-panel-${app.id}`} aria-selected={i===0?'true':'false'} tabindex={i===0?0:-1} class="case-tab">{signals?<span class="case-mark" aria-hidden="true">{cards&&<span class="case-link"></span>}</span>:<span class="case-icon" aria-hidden="true"><Icon name={app.icon}/></span>}<span class="case-label"><span class="case-name">{app.title}</span><span class="case-blurb" aria-hidden="true">{app.summary}</span></span></button>)}
     {!cards&&<Fragment><span class="case-hover" aria-hidden="true"></span><span class="case-marker" aria-hidden="true"></span></Fragment>}
@@ -133,7 +136,7 @@ const cards=signals&&copy&&'cards' in copy.applications?copy.applications.cards:
     </div>)}
    </div>
   </div>
-  {builder&&<div class="builder-case">
+  {builder&&<div class="builder-case" data-reveal={reveal}>
    <h3 class="builder-title" id="builder-title">{builder.title[0]}<br/>{builder.title[1]}</h3>
    <ul class="builder-reasons" aria-labelledby="builder-title">{builder.reasons.map(reason=><li>{!signals&&'icon' in reason&&<span class="builder-icon" aria-hidden="true"><Icon name={reason.icon}/></span>}<strong>{reason.title}</strong> <span class="builder-point">{reason.line}</span></li>)}</ul>
    <div class="builder-ask"><p><span class="ask-setup">{builder.ask[0]}</span> <span class="ask-payoff">{builder.ask[1]}</span></p><Button href="/contact/" variant={askVariant}>Talk to us</Button></div>

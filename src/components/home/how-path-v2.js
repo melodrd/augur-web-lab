@@ -1,11 +1,11 @@
 // /2/ only (owner, 25 Oct 2026, item 4: "build A on /2", sketch A of the item 4 board): How it works' four steps over
 // one stage, and "Walk through an example" (HowItWorks.astro renders this right after the section, so it runs while
 // the page parses). The steps are the shared tabs controller's (tabs.ts: press, arrows, Home/End, automatic
-// activation); this adds the stage's swap and each scene's act. The markup is the rest state: without
-// JavaScript, or if the CSP blocked this, the first step shows with its scene drawn, the example stays open and the
-// button stays hidden; reduced motion and print show the same. Timings and easings come from timelines.ts
-// (howPathTimeline, easing) and each scene's act from how-scenes.ts (howActs), written in at build time
-// (review-inline.ts). Transform and opacity only.
+// activation); this adds the stage's swap, each scene's act and the section's entrance ("paid", then the scene). The markup is the
+// rest state: without JavaScript, or if the CSP blocked this, the first step shows with its scene drawn, the example
+// stays open and the button stays hidden; reduced motion and print show the same. Timings and easings come from
+// timelines.ts (howPathTimeline, easing, revealTimeline.ready) and each scene's act from how-scenes.ts (howActs),
+// written in at build time (review-inline.ts). Transform and opacity only.
 (() => {
 const T = __HOW_PATH__, E = T.easing, L = T.timeline, ACTS = T.acts, html = document.documentElement;
 // page-field.ts sizes its layer to the page's scrollHeight, which counts the layer itself, so the layer can
@@ -58,22 +58,44 @@ const settle = () => { motion.forEach(a => a.cancel()); motion = []; };
 const act = (i, at) => {
 (ACTS[step(i)] || []).forEach(([name, delay, duration, frames]) => go(panels[i]?.querySelector(`[data-how-part="${name}"]`), frames, at + delay, duration, 'linear'));
 };
-// The entrance, once per tab session, after `threshold` of the stage is in view: the shown step's scene acts and
-// the heading's "paid" draws. "paid" waits undrawn from the first paint, so it never shows, vanishes and draws
-// again. A pick or print before then stands in for the entrance, and "paid" simply shows.
-const underline = section.querySelector('.paid-mark');
-let state = seen('entrance') || reduced.matches ? 'done' : 'waiting', wait;
-if (state === 'waiting' && underline) { wait = underline.animate([{ transform: 'scaleX(0)' }, { transform: 'none' }], { duration: L.underline }); wait.pause(); }
-const done = () => { state = 'done'; wait?.cancel(); wait = undefined; mark('entrance'); };
-const observer = new IntersectionObserver(entries => {
-const entry = entries[entries.length - 1];
-if (!entry.isIntersecting) { settle(); return; }
-if (state !== 'waiting' || entry.intersectionRatio < L.threshold) return;
-done();
-go(underline, [{ transform: 'scaleX(0)' }, { transform: 'none' }], L.underlineAt, L.underline, E.draw);
-act(open, L.entrance);
-}, { threshold: [0, L.threshold] });
+// The entrance, once per tab session, in the section's reading order (scroll-motion brief, 29 Oct 2026), one thing at
+// a time: "paid" in the heading draws as the lead lands (the section reveal, reveal-v2.js), while the heading is on
+// screen; then, once the stage has stayed on screen for `dwell` and "paid" is in, the shown step's scene acts. A walk
+// down the steps was built first and cut the same day: in two cold reads, light passing through the steps while the
+// stage stayed on Ask read as a stepper that had lost its content, or as focus moving on its own. "paid" waits undrawn
+// from the first paint, so it never shows, vanishes and draws again. A pick or print before then stands in for the
+// entrance, and "paid" simply shows; the stage leaving the screen, a hidden page or reduced motion settle it.
+const underline = section.querySelector('.paid-mark'), heading = section.querySelector('[data-paid-heading]'), lead = section.querySelector('.section-heading .lead');
+let paid = seen('paid') || reduced.matches ? 'done' : 'waiting', state = seen('entrance') || reduced.matches ? 'done' : 'waiting';
+let wait, ready = false, timer = 0, inAt = 0;
+if (paid === 'waiting' && underline) { wait = underline.animate([{ transform: 'scaleX(0)' }, { transform: 'none' }], { duration: L.underline }); wait.pause(); }
+const show = () => { paid = 'done'; wait?.cancel(); wait = undefined; mark('paid'); };
+const done = () => { show(); state = 'done'; mark('entrance'); };
+// "paid" draws once the heading is in view and the lead above the steps has landed.
+const draw = () => {
+if (paid !== 'waiting' || document.hidden) return;
+const group = lead?.closest('[data-armed]');
+if (group) { group.addEventListener('revealed', draw, { once: true }); return; }
+show();
+go(underline, [{ transform: 'scaleX(0)' }, { transform: 'none' }], 0, L.underline, E.draw);
+inAt = performance.now() + L.underline;
+begin();
+};
+// The scene waits for the stage to stay on screen for `dwell`, so a fly-by (End, a jump) never spends it off screen,
+// and for "paid" to be in.
+const begin = () => {
+clearTimeout(timer);
+if (state !== 'waiting' || !ready || document.hidden || paid === 'waiting') return;
+timer = setTimeout(() => { if (state !== 'waiting' || !ready || document.hidden) return; state = 'done'; mark('entrance'); act(open, 0); }, Math.max(T.dwell, inAt - performance.now()));
+};
+const observer = new IntersectionObserver(entries => entries.forEach(({ target, isIntersecting, intersectionRatio, intersectionRect, rootBounds }) => {
+if (target === heading) { if (intersectionRatio >= L.threshold) draw(); return; }
+ready = isIntersecting && (intersectionRatio >= T.ready || intersectionRect.height >= (rootBounds?.height ?? innerHeight) * T.ready);
+if (!isIntersecting) settle();
+begin();
+}), { threshold: [0, .25, .5, L.threshold, .75, T.ready] });
 observer.observe(stage);
+if (heading && paid === 'waiting') observer.observe(heading);
 // A pick swaps the stage: the shown step fades out while it still holds the shared cell (a hidden panel there is
 // only invisible), then the picked one fades in and its scene acts. Every pick plays it, after a reload too
 // (owner, 26 Oct 2026: changing steps "doesn't show any motion"): a pick is the reader asking for that step.
@@ -87,7 +109,7 @@ let drawn = [];
 root.addEventListener('tabsbeforechange', () => { drawn = rails.map(rail => { const m = rail ? getComputedStyle(rail).transform : 'none'; return m === 'none' ? 1 : new DOMMatrix(m).d; }); settle(); });
 root.addEventListener('tabschange', ({ detail: { index, previous } }) => {
 open = index;
-if (state === 'waiting') done();
+if (state === 'waiting' || paid === 'waiting') done();
 if (reduced.matches) return;
 go(panels[previous], [{ visibility: 'visible', opacity: 1 }, { visibility: 'visible', opacity: 0 }], 0, L.out, 'linear', 'none');
 go(panels[index], [{ opacity: 0 }, { opacity: 1 }], L.at, L.in, E.reveal);
@@ -101,8 +123,8 @@ act(index, L.pick);
 // motion or the stage leaving the screen settles everything on the final frame.
 ['pointerdown', 'focusin', 'keydown'].forEach(type => stage.addEventListener(type, settle));
 root.addEventListener('tabssettled', settle);
-reduced.addEventListener('change', () => { if (state === 'waiting') done(); settle(); });
-addEventListener('beforeprint', () => { if (state === 'waiting') done(); settle(); });
+reduced.addEventListener('change', () => { if (state === 'waiting' || paid === 'waiting') done(); settle(); });
+addEventListener('beforeprint', () => { if (state === 'waiting' || paid === 'waiting') done(); settle(); });
 document.addEventListener('visibilitychange', () => { if (document.hidden) settle(); });
 addEventListener('pagehide', settle);
 })();

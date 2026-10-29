@@ -344,6 +344,11 @@
    it already flows. */
 .home-v2 [data-hero-arrival=entering] .flock{animation:flock-in calc(var(--field-duration) * var(--hero-motion-factor,1)) var(--ease-reveal) calc(var(--field-start) * var(--hero-motion-factor,1)) backwards}
 @keyframes flock-in{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:none}}
+/* The headline and the support line paint at once and only rise into place (the scroll-motion brief, 29 Oct 2026): a
+   fade from nothing held back the Largest Contentful Paint, the support paragraph on phones, by the length of the
+   fade. heroTimeline.v2 times them (Hero.astro); the underline, the actions and the art still fade in after them. */
+.home-v2 .home-hero[data-hero-arrival=entering] :is([data-hero-line],.hero-support){animation-name:hero-rise}
+@keyframes hero-rise{from{transform:translateY(8px)}to{transform:none}}
 @media(max-width:767px){.home-v2 .flock{overflow:hidden;-webkit-mask-image:linear-gradient(to bottom,transparent,#000 22%);mask-image:linear-gradient(to bottom,transparent,#000 22%)}}
 @media(prefers-reduced-motion:reduce){.home-v2 .flock-l{transition:none}}
 /* Forced colours: the glyphs' squares live in <use> copies, which page rules do not reach, but inherited
@@ -636,3 +641,17 @@
 /* On paper every step prints, one after another, and the scenes keep their colours (backgrounds don't print by
    default). */
 @media print{.home-v2 .how-path-stage{display:block}.home-v2 .how-path-panel[hidden]{visibility:visible}.home-v2 .how-path-panel{break-inside:avoid}.home-v2 :is(.how-scene,.holding-mark){-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+/* The roadmap's Now (the scroll-motion brief, 29 Oct 2026): one pulse marks it, on the track's stop; the panel's status
+   square, which pulsed in step beside it, holds still. The stop's pulse rests while the roadmap is off screen
+   (roadmap-v2.js sets data-still): its ring restyled the page on every frame drawn anywhere else. */
+.home-v2 #roadmap .roadmap-status.is-now>span::after{animation:none}
+.home-v2 [data-roadmap-v2][data-still] .roadmap-stop.is-now::after{animation-play-state:paused}
+
+/* Section reveal (owner, 29 Oct 2026: "content should appear little by little while scrolling"; reveal-v2.js). A group
+   below the fold waits invisible under data-armed, which only the script sets, and lifts as the group lands, so without
+   JavaScript nothing is ever armed. Print and forced colours show every group whatever the script is doing. The footer
+   sits outside .home-v2, so these rules are unscoped; only the review copies load this sheet. */
+[data-armed]{opacity:0}
+@media print{:is([data-armed],[data-reveal]){opacity:1!important;transform:none!important}}
+@media(forced-colors:active){[data-armed]{opacity:1!important}}

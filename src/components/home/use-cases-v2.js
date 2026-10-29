@@ -186,13 +186,21 @@ else { frozen = phase(); loop.forEach(a => { a.pause(); a.currentTime = frozen; 
 playing = running();
 };
 const halt = () => { on = false; settle(); clear(); };
+// The loop starts once the section reveal (reveal-v2.js) has brought the stage in, so a reveal and a loop never start
+// together.
+let ratio = 0;
+const begin = () => {
+const group = root.closest('[data-armed]');
+if (group) { group.addEventListener('revealed', begin, { once: true }); return; }
+if (!on && !held && !reduced.matches && visible && ratio >= U.threshold) { on = true; start(0); }
+else sync();
+};
 const observer = new IntersectionObserver(entries => {
 const entry = entries[entries.length - 1];
-visible = entry.isIntersecting;
+visible = entry.isIntersecting; ratio = entry.intersectionRatio;
 // Leaving the screen ends a reader's stop: back in view, the case plays again.
 if (!visible) held = false;
-if (!on && !held && !reduced.matches && entry.intersectionRatio >= U.threshold) { on = true; start(0); }
-else sync();
+begin();
 }, { threshold: [0, U.threshold] });
 observer.observe(stage);
 root.addEventListener('tabsbeforechange', () => { settle(); clear(); });

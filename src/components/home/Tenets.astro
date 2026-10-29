@@ -44,14 +44,19 @@ const paths=copy?copy.why.paths:closer.paths;
 // (click, tap, Enter, Space, Esc and click-outside need no script), described by the button, and anchored
 // under the tab (home-v3.css). The version's `tips` script (tenet-tips-v3.js) adds hover and focus.
 const tips=copy&&cards.some(card=>'tip' in card)?reviewInline[variant as ReviewVariant].scripts.tips:undefined;
+// The review copies' section reveal (reveal-v2.js): the heading, the lead, the three cards left to right and the closer
+// settle in as the reader reaches them; each scene keeps looping once its card has landed. The answer band keeps its
+// own ribbon, which there follows the lead (ribbon-v2.js, so the band carries data-answer-band-v2 and home-art.ts, which
+// plays "/"'s, leaves it alone). `reveal` is undefined on "/", so v1's markup is unchanged.
+const reveal=own?'':undefined;
 ---
 <section class="tenets" id="why-augur" aria-label="Why Augur" data-tenets>
  <div class="container">
-  <div class="section-heading"><h2 id="tenets-heading">Smart contracts<br/>can't see the world.</h2><p class="lead">{copy?copy.why.lead:'Whoever tells them what happened controls who gets paid.'}</p></div>
+  <div class="section-heading"><h2 id="tenets-heading" data-reveal={reveal}>Smart contracts<br/>can't see the world.</h2><p class="lead" data-reveal={reveal}>{copy?copy.why.lead:'Whoever tells them what happened controls who gets paid.'}</p></div>
  </div>
- <div class="answer-band" data-answer-band>{copy?<p class="container" data-answer>{copy.why.answer}</p>:<p class="container" data-answer>With Augur, users don't rely on parties to control answers.</p>}</div>
+ <div class="answer-band" data-answer-band={own?undefined:''} data-answer-band-v2={reveal}>{copy?<p class="container" data-answer>{copy.why.answer}</p>:<p class="container" data-answer>With Augur, users don't rely on parties to control answers.</p>}</div>
  <div class="container tenet-grid">
-  {cards.map(card=>{const {title,diagram:Diagram,claim,body}=card;const tip='tip' in card?card.tip:undefined;return <article class="tenet-card" data-tenet-card>
+  {cards.map(card=>{const {title,diagram:Diagram,claim,body}=card;const tip='tip' in card?card.tip:undefined;return <article class="tenet-card" data-tenet-card data-reveal={own?'item':undefined}>
    {tip?<div class="tenet-head" style={`anchor-name:--${tip.id}`}><h3 class="tenet-tab">{title}</h3><button type="button" class="tenet-tip" popovertarget={tip.id} aria-label={tip.label} aria-describedby={tip.id} data-tenet-tip><span class="tenet-tip-mark" aria-hidden="true">?</span></button><p class="tenet-tip-pop" id={tip.id} popover style={`position-anchor:--${tip.id}`}><strong>{title}:</strong> {tip.text}</p></div>:<h3 class="tenet-tab">{title}</h3>}
    {'iso' in card&&card.iso?<div class="tenet-visual tenet-visual-iso"><IsoScene kind={card.iso}/></div>:<div class="tenet-visual"><Diagram/></div>}
    <div class="tenet-copy">
@@ -59,7 +64,7 @@ const tips=copy&&cards.some(card=>'tip' in card)?reviewInline[variant as ReviewV
     <p class="tenet-body">{body}</p>
    </div>
   </article>;})}
-  {own?<div class="tenet-closer">
+  {own?<div class="tenet-closer" data-reveal>
    <h3 class="closer-head">{closer.statement}</h3>
    <ul class="closer-readers" role="list">{paths.map(({who,line})=><li class="closer-reader">
     <h4 class="closer-who">{who}</h4>
@@ -73,7 +78,7 @@ const tips=copy&&cards.some(card=>'tip' in card)?reviewInline[variant as ReviewV
    </div>)}
   </div>}
  </div>
-</section>{tips&&<script is:inline set:html={tips}></script>}{own&&<script is:inline set:html={reviewInline.v2.scripts.tenets}></script>}
+</section>{tips&&<script is:inline set:html={tips}></script>}{own&&<script is:inline set:html={reviewInline.v2.scripts.ribbon}></script>}{own&&<script is:inline set:html={reviewInline.v2.scripts.tenets}></script>}
 <style>
  .tenets{padding-top:64px}.tenets>.container:first-child{padding-top:72px;padding-bottom:56px}.section-heading{margin-bottom:0}.answer-band{position:relative;overflow:hidden;background:var(--primary);color:var(--background);padding:24px 0 28px}.answer-band p{font-family:var(--font-heading);font-size:clamp(26px,2.5vw,36px);font-weight:600;line-height:44px;letter-spacing:-.01em;text-wrap:balance}
  .tenet-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;padding-top:48px;padding-bottom:96px}

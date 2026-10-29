@@ -32,9 +32,11 @@ const keep=copy&&'keep' in copy.hero?copy.hero.keep:5;
 // A copy may also set the sentence's opening (Melo's adds "Anyone can ask"); every other page keeps v1's literal.
 const bodyStart=copy&&'bodyStart' in copy.hero?copy.hero.bodyStart:undefined;
 const arrivalScript=heroArrival.replace('__DEV__',String(import.meta.env.DEV));
-// On /2/ the underline draws before the actions arrive and retracts sooner (heroTimeline.v2).
-const {underline,underlineOut}=own?heroTimeline.v2:heroTimeline;
-const style=`--line-duration:${heroTimeline.lines[0].end}ms;--copy-start:${heroTimeline.copy.start}ms;--copy-duration:${heroTimeline.copy.end-heroTimeline.copy.start}ms;--action-start:${heroTimeline.actions.start}ms;--action-duration:${heroTimeline.actions.end-heroTimeline.actions.start}ms;--field-start:${heroTimeline.field.start}ms;--field-duration:${heroTimeline.field.end-heroTimeline.field.start}ms;--underline-start:${underline.start}ms;--underline-duration:${underline.end-underline.start}ms;--underline-out-start:${underlineOut.start}ms;--underline-out-duration:${underlineOut.end-underlineOut.start}ms;--underline-hover:${heroTimeline.underlineHover}ms;--cue-start:${heroTimeline.scrollCue.start}ms;--cue-duration:${heroTimeline.scrollCue.end-heroTimeline.scrollCue.start}ms;--cue-cycle:${heroTimeline.scrollCue.cycle}ms`;
+// The review copies keep their own arrival (heroTimeline.v2): the headline and the support line only rise, under
+// 300 ms, so they paint at once (home-v2-only.css swaps their keyframes); the underline draws before the actions
+// arrive and retracts sooner; the art fades in once the text has landed.
+const t=own?{...heroTimeline,...heroTimeline.v2}:heroTimeline;const {lines,underline,underlineOut}=t;
+const style=`--line-duration:${lines[0].end}ms;--copy-start:${t.copy.start}ms;--copy-duration:${t.copy.end-t.copy.start}ms;--action-start:${t.actions.start}ms;--action-duration:${t.actions.end-t.actions.start}ms;--field-start:${t.field.start}ms;--field-duration:${t.field.end-t.field.start}ms;--underline-start:${underline.start}ms;--underline-duration:${underline.end-underline.start}ms;--underline-out-start:${underlineOut.start}ms;--underline-out-duration:${underlineOut.end-underlineOut.start}ms;--underline-hover:${heroTimeline.underlineHover}ms;--cue-start:${heroTimeline.scrollCue.start}ms;--cue-duration:${heroTimeline.scrollCue.end-heroTimeline.scrollCue.start}ms;--cue-cycle:${heroTimeline.scrollCue.cycle}ms`;
 ---
 <section class="home-hero" aria-labelledby="hero-title" data-home-hero style={style}>
  <script is:inline set:html={arrivalScript}></script>
@@ -42,7 +44,7 @@ const style=`--line-duration:${heroTimeline.lines[0].end}ms;--copy-start:${heroT
  {own&&<div class="hero-video" data-hero-video={layer==='video'?'':undefined} data-hero-floor={layer==='floor'?'':undefined} aria-hidden="true"><picture><source media="(min-width:1024px)" srcset={stills} sizes="95vw" width="1920" height="1080"/><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAIBAAA=" alt="" width="1920" height="1080" decoding="async"/></picture></div>}
  <div class="container hero-inner">
   <div class="hero-copy">
-   <h1 id="hero-title" class="display"><span data-hero-line style={`--line-start:${heroTimeline.lines[0].start}ms`}>The frontier of</span>{' '}<span data-hero-line style={`--line-start:${heroTimeline.lines[1].start}ms`}><span class="hero-emphasis">decentralized</span></span>{' '}<span data-hero-line style={`--line-start:${heroTimeline.lines[2].start}ms`}>truth<span class="hero-dot">.</span></span></h1>
+   <h1 id="hero-title" class="display"><span data-hero-line style={`--line-start:${lines[0].start}ms`}>The frontier of</span>{' '}<span data-hero-line style={`--line-start:${lines[1].start}ms`}><span class="hero-emphasis">decentralized</span></span>{' '}<span data-hero-line style={`--line-start:${lines[2].start}ms`}>truth<span class="hero-dot">.</span></span></h1>
    <div class="hero-support"><p class="hero-lead">Real-world answers for onchain apps, {own?<span class="hero-keep">controlled by no one.</span>:'controlled by no one.'}</p><p class="hero-body">{bodyStart??<Fragment>Augur Lituus is the next generation of Augur's oracle. Anyone can answer, anyone can challenge, and </Fragment>}{own?<>{endWords.slice(0,-keep).join(' ')+' '}<span class="hero-keep">{endWords.slice(-keep).join(' ')}</span></>:bodyEnd}</p></div>
    <div class="hero-actions">{paths?<nav class="hero-paths" aria-label={paths.label}>{paths.links.map(({label,href},i)=><Button href={href} variant={i?'outline':'primary'}>{label}</Button>)}</nav>:<Button href="#how-it-works">See how it works</Button>}<Button href={links.whitepaper.url} variant="text" external>Read the whitepaper</Button></div>
   </div>

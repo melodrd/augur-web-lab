@@ -10,7 +10,8 @@ import {reviewVersions,type ReviewVersion} from '../data/homepage-review';
 // static pages: Astro writes one build-wide CSP hash list into every page, in route order, and static
 // routes would reorder that list on "/" as well. A dynamic route sorts after every static one, just before
 // "/", which keeps "/" byte-identical. All are noindex with their own canonical, and all show the version
-// switch. Astro.props is typed from getStaticPaths: { variant: ReviewVariant }.
+// switch. Astro.props is typed from getStaticPaths: { variant: ReviewVariant }. The section reveal goes in the
+// layout's "end" slot, after the footer, so it finds every section and the footer when it runs.
 export function getStaticPaths(){return reviewVersions.map(({version,variant})=>({params:{version},props:{variant}}));}
 const {variant}=Astro.props;
 const version=Astro.params.version as ReviewVersion;
@@ -21,4 +22,4 @@ const sha=(text:string)=>`sha256-${createHash('sha256').update(text).digest('bas
 Astro.csp?.insertStyleHash(sha(switchInline.style));Astro.csp?.insertScriptHash(sha(switchInline.script));
 inline.styles.forEach(css=>Astro.csp?.insertStyleHash(sha(css)));Object.values(inline.scripts).forEach(js=>Astro.csp?.insertScriptHash(sha(js)));
 ---
-<Home variant={variant} noindex><Fragment slot="version"><VersionSwitch current={version}/>{inline.styles.map(css=><style is:inline set:html={css}></style>)}</Fragment></Home>
+<Home variant={variant} noindex><Fragment slot="version"><VersionSwitch current={version}/>{inline.styles.map(css=><style is:inline set:html={css}></style>)}</Fragment><Fragment slot="end"><script is:inline set:html={inline.scripts.reveal}></script></Fragment></Home>

@@ -13,6 +13,8 @@ const {footer=true,class:className,...metadata}=Astro.props;
 // Melo's chrome (owner, 26 Oct 2026): every inner page renders its sheet in the same place and hashes the
 // sheet and the header's script here, before the head streams. The review copies carry both with their own
 // strings ([version].astro), and "/" gets neither, so it stays byte-identical.
+// The "end" slot comes after the footer: the review copies' section reveal ([version].astro) runs once every section
+// and the footer are parsed. Every other page leaves it empty.
 const path=Astro.url.pathname;
 const chrome=ownerChrome(path)&&!homePaths.includes(path);
 const sha=(text:string)=>`sha256-${createHash('sha256').update(text).digest('base64')}` as const;
@@ -21,5 +23,5 @@ if(chrome){Astro.csp?.insertStyleHash(sha(chromeInline.style));Astro.csp?.insert
 <BaseLayout {...metadata}>
   <slot name="version"/>{chrome&&<style is:inline set:html={chromeInline.style}></style>}<AnnouncementBar /><SiteHeader />
   <main id="main" class={className} tabindex="-1"><slot /></main>
-  {footer&&<SiteFooter />}
+  {footer&&<SiteFooter />}<slot name="end"/>
 </BaseLayout>

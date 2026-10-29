@@ -22,7 +22,7 @@ const root=Astro.props.variant===undefined;
 if(root){const sha=(text:string)=>`sha256-${createHash('sha256').update(text).digest('base64')}` as const;Astro.csp?.insertStyleHash(sha(switchInline.style));Astro.csp?.insertScriptHash(sha(switchInline.script));}
 ---
 <PageLayout noindex={noindex} class={pageClass(variant)}>
- {root?<Fragment slot="version"><VersionSwitch/></Fragment>:<slot name="version" slot="version"/>}<Hero variant={variant}/><Tenets variant={variant}/><Applications variant={variant}/><HowItWorks variant={variant}/><Roadmap variant={variant}/><LearnMore variant={variant}/>
+ {root?<Fragment slot="version"><VersionSwitch/></Fragment>:<slot name="version" slot="version"/>}{!root&&<slot name="end" slot="end"/>}<Hero variant={variant}/><Tenets variant={variant}/><Applications variant={variant}/><HowItWorks variant={variant}/><Roadmap variant={variant}/><LearnMore variant={variant}/>
  <script>
   // These sections exist only here, so the page starts them once from one script; each init
   // finds its own sections. One entry instead of five identical ones keeps the JavaScript budget.

@@ -20,10 +20,13 @@ import videoScript from './hero-video-v2.js?raw';
 import floorScript from './hero-floor-v2.js?raw';
 import useCasesScript from './use-cases-v2.js?raw';
 import howPathScript from './how-path-v2.js?raw';
+import roadmapScript from './roadmap-v2.js?raw';
+import ribbonScript from './ribbon-v2.js?raw';
+import revealScript from './reveal-v2.js?raw';
 import {flockMotion} from '../../data/hero-flock';
 import {isoTracks} from '../../data/tenets-iso';
 import {howActs} from '../../data/how-scenes';
-import {easing,useCaseTimeline,howPathTimeline} from '../../motion/timelines';
+import {easing,timing,useCaseTimeline,howPathTimeline,roadmapTimeline,ribbonTimeline,revealTimeline} from '../../motion/timelines';
 // Comment lines and indentation are dropped; the line breaks stay, so the script parses as written.
 const compact = (js: string) => js.replace(/^\s*\/\/.*\n/gm, '').replace(/^[ \t]+/gm, '').trim();
 export const switchInline = { style: switchStyle, script: compact(switchScript) };
@@ -49,13 +52,17 @@ export const reviewScripts = { how: compact(howScript) } as Record<string, strin
 // `floor` draws the hero's live floor and `video` plays its generated loop, from 1024 px (Hero.astro
 // renders the one its `layer` picks after the flock's); `useCases` plays the use cases' product cards,
 // with the timings from timelines.ts written in (Applications.astro renders it after the section);
-// `howPath` adds hover to How it works' four steps and plays its stage, with how-scenes.ts's acts written
-// in, and opens its example (HowItWorks.astro renders it after the section, in place of `how`).
+// `howPath` adds hover to How it works' four steps and plays its stage and its entrance ("paid", then the scene), with how-scenes.ts's
+// acts written in, and opens its example (HowItWorks.astro renders it after the section, in place of `how`);
+// `roadmap` runs the roadmap's picker motion and plays its track's entrance (Roadmap.astro renders it after the
+// section); `ribbon` sweeps the Why Augur answer band once its lead has landed, with ribbonTimeline written in
+// (Tenets.astro renders it after the section); `reveal` settles each section in as the reader reaches it, with
+// revealTimeline written in ([version].astro renders it once, after the footer, through PageLayout's "end" slot).
 // Ryan's `tips` adds hover and focus to the Why Augur "?" toggletips (Tenets.astro renders it after the
 // section). The components embed the shared scripts as reviewInline.v2's strings, which are the same
 // strings every version lists, so each page's hashes match.
 type Inline = { styles: string[]; scripts: Record<string, string> };
-const ui = { styles: [v2Style, v2OnlyStyle, chromeInline.style], scripts: { ...reviewScripts, header: chromeInline.header, tenets: compact(tenetsIsoScript).replace('__SCENES__', JSON.stringify(isoTracks)), flock: compact(flockScript).replace('__FLOCK__', JSON.stringify(flockMotion)), video: compact(videoScript), floor: compact(floorScript), useCases: compact(useCasesScript).replace('__USE_CASES__', JSON.stringify({ easing, timeline: useCaseTimeline })), howPath: compact(howPathScript).replace('__HOW_PATH__', JSON.stringify({ easing, timeline: howPathTimeline, acts: howActs })) } };
+const ui = { styles: [v2Style, v2OnlyStyle, chromeInline.style], scripts: { ...reviewScripts, header: chromeInline.header, tenets: compact(tenetsIsoScript).replace('__SCENES__', JSON.stringify(isoTracks)), flock: compact(flockScript).replace('__FLOCK__', JSON.stringify(flockMotion)), video: compact(videoScript), floor: compact(floorScript), useCases: compact(useCasesScript).replace('__USE_CASES__', JSON.stringify({ easing, timeline: useCaseTimeline })), howPath: compact(howPathScript).replace('__HOW_PATH__', JSON.stringify({ easing, timeline: howPathTimeline, ready: revealTimeline.ready, dwell: revealTimeline.dwell, acts: howActs })), roadmap: compact(roadmapScript).replace('__ROADMAP__', JSON.stringify({ easing, timeline: roadmapTimeline, fadeOut: timing.fadeOut, ready: revealTimeline.ready, dwell: revealTimeline.dwell })), ribbon: compact(ribbonScript).replace('__RIBBON__', JSON.stringify({ easing, timeline: ribbonTimeline })), reveal: compact(revealScript).replace('__REVEAL__', JSON.stringify({ easing, timeline: revealTimeline, duration: timing.panel })) } };
 export const reviewInline: Record<ReviewVariant, Inline> = {
   v2: { styles: ui.styles.filter(Boolean), scripts: ui.scripts },
   v3: { styles: [...ui.styles, v3Style].filter(Boolean), scripts: { ...ui.scripts, tips: compact(tipsScript) } },

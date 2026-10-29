@@ -27,9 +27,14 @@ export const heroTimeline = {
   scrollCue:{start:2400,end:2800,cycle:2400},
   field:{start:500,end:2100}, rings:[600,500,400,300,200,100,0],
   squareMove:1200,squareFade:800,orbit:{start:1100,end:1700},centre:{start:1750,end:2300},
-  /** /2/ only (hero review, 22 Oct 2026): the underline draws as "decentralized" settles, before the
-   * actions arrive, and retracts 300 ms sooner, so the scroll cue fades in once it has gone. */
-  v2:{underline:{start:450,end:1020},underlineOut:{start:1900,end:2400}},
+  /** The review copies (hero review, 22 Oct 2026; the scroll-motion brief, 29 Oct 2026). On phones the support
+   * paragraph is the Largest Contentful Paint (measured), and a fade held it back, so the headline and the support line
+   * are visible from the first paint and only rise 8 px, each under 300 ms: the lines `lines`, then the support `copy`. The
+   * underline draws as "decentralized" settles, before the actions arrive, and retracts before the scroll cue
+   * fades in. The art (`field`) fades in once the text has landed and is in by the time it used to be, because at
+   * 1440 the floor's still is the LCP element and counts only once its fade ends. */
+  v2:{lines:[{start:0,end:280},{start:40,end:320},{start:80,end:360}],copy:{start:120,end:400},actions:{start:420,end:720},
+   underline:{start:280,end:800},underlineOut:{start:1900,end:2400},field:{start:600,end:2000}},
 } as const;
 /** Hero ambience after arrival lives in hero-choreography.ts (one source for
  * the website and the Figma keyframes). */
@@ -85,16 +90,29 @@ export const applicationTimeline = { threshold:.6, out:160, start:120, enter:640
 export const useCaseTimeline = { threshold:.6, link:240, out:160, at:160, in:320, swapIn:120, statusFrom:.92, loop:{ cycle:12000, fade:600, reset:400, resetOut:300, resetIn:400, out:200, in:520, light:400, dim:.35, past:.5, slide:55, glow:1400, focus:1400, ticks:[1800, 2400, 3000], reported:4400, waitIn:280, final:6400, seal:420, paid:7200, rest:8300 }, relay:{ depart:1200, pay:640, arrive:560 }, switch:{ close:2600, slide:480, pick:240, other:.4 } } as const;
 /** How it works on /2/ (owner, 25 Oct 2026, item 4: "build A on /2", four steps over one stage; how-path-v2.js,
  * which gets this, `easing` and how-scenes.ts's acts written in). Steps are picked by press or key, never hover
- * (owner, 26 Oct 2026). Once per tab session, after `threshold` of the stage is in view, the shown step's scene acts from
- * `entrance` and the heading's "paid" draws from `underlineAt` over `underline` (draw). A pick swaps the stage:
- * the shown step fades out over `out` and the picked one fades in from `at` over `in`; on every pick its scene acts
- * from `pick`. Each act's own timing (the magnet, 26 Oct 2026) lives with its drawing in
- * how-scenes.ts. The links between the two steps draw in order (29 Oct 2026), each over `rail` (draw),
- * `railStagger` apart, one run: forward top to bottom, each square lighting (opacity .3 and 60% to full, newcomer)
- * over `light` from `lightAt` into the link that reaches it; back bottom to top, the picked square lighting at once. The words never move. Opening the example: its
- * four sentences rise `rise` px and fade in over `row` (settle), `stagger` apart (0.65 s in all). Closing is
- * instant. */
-export const howPathTimeline = { threshold:.5, entrance:200, underlineAt:360, underline:560, out:160, at:160, in:320, pick:200, rail:360, railStagger:360, lightAt:300, light:280, rise:8, row:320, stagger:110 } as const;
+ * (owner, 26 Oct 2026). A pick swaps the stage: the shown step fades out over `out` and the picked one fades in from
+ * `at` over `in`; on every pick its scene acts from `pick`. Each act's own timing (the magnet, 26 Oct 2026) lives
+ * with its drawing in how-scenes.ts. The links between the two steps draw in order (29 Oct 2026), each over `rail`
+ * (draw), `railStagger` apart, one run: forward top to bottom, each square lighting (opacity .3 and 60% to full,
+ * newcomer) over `light` from `lightAt` into the link that reaches it; back bottom to top, the picked square lighting
+ * at once. The words never move.
+ * The entrance, once per tab session, follows the section's reading order (scroll-motion brief, 29 Oct 2026): the
+ * heading's "paid" draws over `underline` (draw) once `threshold` of the heading is in view and the section's lead has
+ * landed; then, once `revealTimeline.ready` of the stage has stayed on screen for `revealTimeline.dwell` and "paid" is
+ * in, the shown step's scene acts. (A walk down the steps was tried and cut: moving light through the steps while the
+ * stage stayed on Ask read, in two cold reads, as a stepper that had lost its content or as focus moving by itself.)
+ * Opening the example: its four sentences rise `rise` px and fade in over `row` (settle), `stagger` apart (0.65 s
+ * in all). Closing is instant. */
+export const howPathTimeline = { threshold:.6, underline:560, out:160, at:160, in:320, pick:200, rail:360, railStagger:360, lightAt:300, light:280, rise:8, row:320, stagger:110 } as const;
+/** Section reveal on the review copies (owner, 29 Oct 2026: "content should appear little by little while scrolling";
+ * the scroll-motion brief; reveal-v2.js, which gets this, `easing` and `timing.panel` written in). Each [data-reveal]
+ * group armed below the fold settles in once, when its top passes `line` of the screen: it fades in as it rises `rise`
+ * px over `timing.panel` (the heading `headingRise` over `heading`), on the settle curve, `stagger` after the group
+ * before it in its section and `itemStagger` between the cards of one row, so a section lands within about 700 ms. A
+ * section's own scene (How it works' scene, the roadmap's track) starts once `ready` of it has stayed on screen for
+ * `dwell`, so a fly-by (End, a jump) never spends it off screen, and the lead above it has landed. (No `timing.panel`
+ * in here: an unused entry that reads it leaves the read in "/"'s bundle.) */
+export const revealTimeline = { line:.9, heading:400, headingRise:12, rise:8, stagger:80, itemStagger:60, ready:.9, dwell:120 } as const;
 /** Sitewide field (owner, 19 Oct 2026): cells within `margin` px of text or an object stay empty; full-width
  * bands darker than `bandLuminance` count as background. A `density` share of the rest hold a 3 px square,
  * `green` of them Green, in `steps` opacity steps across `paperOpacity` / `greenOpacity`; redrawn `debounce`

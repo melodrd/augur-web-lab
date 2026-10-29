@@ -5,12 +5,16 @@ import Button from '../primitives/Button.astro';
 import {navigationGroups,type NavigationItem} from '../../data/navigation';
 import {links} from '../../data/links';
 import {site} from '../../data/site';
+import {variantAt} from '../../data/homepage-review';
 const email=links.contact.url.replace(/^mailto:/,'');
 // Both rows sit on the site's 500 / 80 / 668 heading grid, so the newsletter and the first
 // link column share one edge with every section above. One footer nav landmark; every
 // footer heading is an h2, a peer of the contact title rather than nested under it.
+// On the homepage's review copies the footer settles in as one group, with no stagger (reveal-v2.js); every other
+// page, "/" included, renders it unchanged.
+const reveal=variantAt(Astro.url.pathname)!=='v1'?'':undefined;
 ---
-<footer class="site-footer">
+<footer class="site-footer" data-reveal={reveal}>
   <div class="contact-band">
     <div class="container footer-grid">
       <div class="contact-copy"><h2 id="contact-title">Talk to the Augur team.</h2><p>Ask about the protocol or share feedback. Building on it? Tell us what your project needs.</p><div class="contact-actions"><Button href="/contact/">Talk to us</Button><a class="contact-email" href={links.contact.url}>{email}</a></div></div>
