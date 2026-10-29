@@ -29,6 +29,8 @@ const paths=copy&&'paths' in copy.hero?copy.hero.paths:undefined;
 // five, or the copy's own `keep` where its ending is longer (Ryan's, which five broke early at 1440).
 const bodyEnd=copy?copy.hero.bodyEnd:'lying is designed to cost more than it pays.';const endWords=bodyEnd.split(' ');
 const keep=copy&&'keep' in copy.hero?copy.hero.keep:5;
+// A copy may also set the sentence's opening (Melo's adds "Anyone can ask"); every other page keeps v1's literal.
+const bodyStart=copy&&'bodyStart' in copy.hero?copy.hero.bodyStart:undefined;
 const arrivalScript=heroArrival.replace('__DEV__',String(import.meta.env.DEV));
 // On /2/ the underline draws before the actions arrive and retracts sooner (heroTimeline.v2).
 const {underline,underlineOut}=own?heroTimeline.v2:heroTimeline;
@@ -41,7 +43,7 @@ const style=`--line-duration:${heroTimeline.lines[0].end}ms;--copy-start:${heroT
  <div class="container hero-inner">
   <div class="hero-copy">
    <h1 id="hero-title" class="display"><span data-hero-line style={`--line-start:${heroTimeline.lines[0].start}ms`}>The frontier of</span>{' '}<span data-hero-line style={`--line-start:${heroTimeline.lines[1].start}ms`}><span class="hero-emphasis">decentralized</span></span>{' '}<span data-hero-line style={`--line-start:${heroTimeline.lines[2].start}ms`}>truth<span class="hero-dot">.</span></span></h1>
-   <div class="hero-support"><p class="hero-lead">Real-world answers for onchain apps, {own?<span class="hero-keep">controlled by no one.</span>:'controlled by no one.'}</p><p class="hero-body">Augur Lituus is the next generation of Augur's oracle. Anyone can answer, anyone can challenge, and {own?<>{endWords.slice(0,-keep).join(' ')+' '}<span class="hero-keep">{endWords.slice(-keep).join(' ')}</span></>:bodyEnd}</p></div>
+   <div class="hero-support"><p class="hero-lead">Real-world answers for onchain apps, {own?<span class="hero-keep">controlled by no one.</span>:'controlled by no one.'}</p><p class="hero-body">{bodyStart??<Fragment>Augur Lituus is the next generation of Augur's oracle. Anyone can answer, anyone can challenge, and </Fragment>}{own?<>{endWords.slice(0,-keep).join(' ')+' '}<span class="hero-keep">{endWords.slice(-keep).join(' ')}</span></>:bodyEnd}</p></div>
    <div class="hero-actions">{paths?<nav class="hero-paths" aria-label={paths.label}>{paths.links.map(({label,href},i)=><Button href={href} variant={i?'outline':'primary'}>{label}</Button>)}</nav>:<Button href="#how-it-works">See how it works</Button>}<Button href={links.whitepaper.url} variant="text" external>Read the whitepaper</Button></div>
   </div>
   <div class="hero-visual">{own?<FlockArt/>:<HeroArt/>}</div>
