@@ -65,7 +65,7 @@
         ],
         [
           "melo:hero/1",
-          "Augur Lituus is the next generation of Augur’s oracle, one of the most robust ways to put data onchain. Anyone can ask, anyone can answer, anyone can challenge, and lying is designed to cost more than"
+          "Augur Lituus is the oracle behind those answers. Anyone can ask, report or challenge, and lying is designed to cost more than"
         ],
         [
           "melo:hero/2",
@@ -99,11 +99,11 @@
         ],
         [
           "melo:why/3",
-          "Whoever controls the oracle decides who gets paid."
+          "Blockchain apps need to know what happened before they pay out or act."
         ],
         [
           "melo:why/4",
-          "With Augur, no one controls the oracle."
+          "Augur tells them, with no one in charge of the truth."
         ],
         [
           "239:485",
@@ -119,7 +119,7 @@
         ],
         [
           "melo:why/7",
-          "Ask, answer or push back. No one has to let you in."
+          "No approvals and no gatekeepers, whoever you are."
         ],
         [
           "239:495",
@@ -135,7 +135,7 @@
         ],
         [
           "melo:why/10",
-          "Trustless all the way: even Augur's creators can't overrule answers."
+          "No company or developer can overrule an answer."
         ],
         [
           "melo:why/11",
@@ -151,7 +151,7 @@
         ],
         [
           "melo:why/14",
-          "Designed to cost attackers more than almost any other oracle."
+          "Designed with economic defenses that few can match."
         ],
         [
           "melo:why/15",
