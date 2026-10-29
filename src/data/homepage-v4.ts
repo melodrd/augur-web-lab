@@ -1,6 +1,6 @@
 /** Homepage v4 copy, the /ryan-augus/ review copy: both reviewers' notes, every section rewritten from them
  * (owner, 29 Oct 2026: "rewrite the copy of all sections … based on the suggestions"; the Augus-only copy
- * at /augus/ is gone and now redirects here). Three sources:
+ * at /augus/ is gone and now redirects here). Four sources:
  * - Ryan's 17 notes as Augus marked them: a dash means do it (2, 3, 4, 5, 7, 8, 9, 10, 12, 13, 15, 17), an
  *   X means don't (6, the "?" tips; 11, removing the builder block; 16, the intent split), no mark keeps
  *   it (1, the hero headline; 14, the roadmap).
@@ -10,6 +10,9 @@
  *   wants the market they use on this oracle; What can Augur Lituus power leans into the business case
  *   (resolution outsourced, no hiring, disputes off the project, liability very lightly); How it works is
  *   the consumer case for taking part and getting paid, Holding REP inside it; the roadmap: "Coming soon?".
+ * - Augus's opening copy (29 Oct 2026): the hero's first sentence, the Why Augur lead and band, and the three
+ *   card bodies. The owner had them on Melo's version, then moved them here ("these are his suggestions"),
+ *   and Melo's keeps its own.
  * Augus's worry is that Ryan's changes turn technical, so every line is in plain words.
  * Facts win over a reviewer's wording (January 2026 whitepaper; docs/sources.md): "risk losing the token" is
  * REP losing its value, since nothing takes the token. Lines that keep a reviewer's word against a house
@@ -21,6 +24,10 @@ import {homeV2} from './homepage-v2';
 export const homeV4 = {
   ...homeV2,
   hero: {
+    // Augus, 29 Oct 2026: the opening said what Augur Lituus is, not what it does. His line ("lets blockchain
+    // applications find out what happened in the real world"), in the About page's and the glossary's words,
+    // keeps "oracle", which the other versions' sentence defines (Hero.astro).
+    intro: 'Augur Lituus is Augur’s next-generation oracle: it tells blockchain apps what happened in the real world.',
     // Ryan 2 (dash), his words; the whitepaper's modelled estimate (Abstract p1; §7.5 p20), hedged by
     // "designed to". The review UI keeps the ending's last two words on one line. "See how it works" stays
     // (Ryan 16, X).
@@ -28,30 +35,34 @@ export const homeV4 = {
     bodyEnd: 'lying is designed to cost more than ever before.',
   },
   why: {
-    // Ryan 3 (dash), verbatim.
-    lead: 'Whoever controls the oracle decides who gets paid.',
-    // Ryan 4 (dash) on Augus's band: no "parties". Augus's user reading ("protect funds with economics rather
-    // than" trust) gives the plain word: no one has to be trusted with the answer.
-    answer: 'With Augur, users don’t have to trust anyone with the answer.',
+    // Augus, 29 Oct 2026: the step the heading needed, his sentence without the serial comma (house style).
+    // "Blockchain applications" stays: readers know that word before they know "oracle" (owner). A no-break
+    // hyphen (U+2011) keeps "real‑world" on one line on phones.
+    lead: 'Blockchain applications need answers to real‑world questions before they can make payments, settle agreements or take action.',
+    // Augus's band, "with no one" for "without putting anyone": 12 characters shorter, so it breaks at the comma
+    // (1440, 1024) or keeps one line (1100 to 1280). "Those answers" are the lead's. Design intent (Abstract p1;
+    // §2 p2: no backstops or vetoes).
+    answer: 'Augur brings those answers onchain, with no one in charge of the truth.',
     // Augus 3 (Ryan 17, dash): his titles, order and facts. Same scenes as v2 (two roads, the middleman,
-    // the catapult).
+    // the catapult). The bodies are his 29 Oct lines, trimmed so all three switch together: two lines from
+    // 1300 up and three from 1024 to 1280 (measured; they differ only in about 15 px around 1290).
     tenets: [
-      // Ryan 5 (dash) over Augus's "Any app can ask." (anyone may pay a fee to ask, §2 p2, §4.4.1 p7). His
-      // body without "on Augur", so it keeps two lines at 1024.
-      // FLAG: "Report, challenge or build" is a rule of three (house style), Augus's own.
-      { title: 'Permissionless', diagram: 'cross', claim: ['Anyone can ask.', 'Anyone can answer.'], body: 'Report, challenge or build. No approvals, no gatekeepers.' },
-      // Augus's three sentences, the two the whitepaper sources as the claim (Abstract p1: truth "is not decided
-      // by token holders, governance, multisigs, or anyone else") and admin keys leading the body, so the claim
-      // keeps two lines like the other cards ("No governance. No multisigs." on one line wrapped at every width).
-      // His body, its rule of three cut to the name that carries it ("or anyone else", Abstract p1).
-      // FLAG: "No admin keys." is not in the whitepaper, and Lituus-CS isn't shipped: Augus to confirm.
-      { title: 'Trustless', diagram: 'authority', claim: ['No governance.', 'No multisigs.'], body: 'No admin keys. Not even Augur’s creators can override answers.' },
-      // Augus's claim, verbatim. His body ("one of the highest economic barriers to attack among decentralized
-      // oracles") in plain words: the whitepaper's modelled estimate (Abstract p1, "significantly more
-      // resistant to attack than all current offerings"; §3 p3, 134% of FDV), hedged by "designed to" and
-      // "one of".
+      // Ryan 5 (dash) over Augus's "Any app can ask." (anyone may pay a fee to ask, §2 p2, §4.4.1 p7). His body,
+      // "Ask" for "Submit" (the claim's verb and How it works' first step) and "a question" for "a question
+      // about a real-world event" (the lead says real-world questions).
+      { title: 'Permissionless', diagram: 'cross', claim: ['Anyone can ask.', 'Anyone can answer.'], body: 'Ask a question, report what happened or challenge an answer you believe is wrong.' },
+      // Augus's claim, the two sentences the whitepaper sources (Abstract p1: truth "is not decided by token
+      // holders, governance, multisigs, or anyone else"). His body ("i like", the owner), "a dispute" for
+      // "Augur's dispute process", which took it to four lines at 1024; it replaces "No admin keys.", which the
+      // whitepaper never mentions (§2 p2: "without any centralized backstops or vetoes").
+      { title: 'Trustless', diagram: 'authority', claim: ['No governance.', 'No multisigs.'], body: 'No company, developer or governing body can overrule the outcome of a dispute.' },
+      // Augus's claim, verbatim. His body reworded (owner: "something better but similar"): "Designed with" for
+      // "Built with", since the design isn't deployed, and "that few can match" for "some of the strongest … of
+      // any oracle"; the whitepaper's modelled estimate claims more (Abstract p1, "significantly more resistant
+      // to attack than all current offerings"; §3 p3, 134% of FDV). "False outcomes" is the paper's "fraudulent
+      // outcome" (Abstract p1).
       // FLAG: "Harder to game. Costlier to manipulate." are comparatives without a referent.
-      { title: 'Robust', diagram: 'mesh', claim: ['Harder to game.', 'Costlier to manipulate.'], body: 'Designed to be one of the costliest oracles to attack.' },
+      { title: 'Robust', diagram: 'mesh', claim: ['Harder to game.', 'Costlier to manipulate.'], body: 'Designed with economic defenses against false outcomes that few can match.' },
     ],
     // The closer statement stays ("The answer is nobody’s call."), over Augus's two readings.
     paths: [

@@ -46,39 +46,33 @@ export const homeV2 = {
     whitepaper: false,
   },
   why: {
-    // Augus, 29 Oct 2026: the draft's lead, without the serial comma (house style). "Blockchain applications"
-    // stays: readers know that word before they know "oracle" (owner, same day). A no-break hyphen (U+2011)
-    // keeps "real‑world" on one line on phones.
-    lead: 'Blockchain applications need answers to real‑world questions before they can make payments, settle agreements or take action.',
-    // Augus's band, "with no one" for "without putting anyone": 12 characters shorter, so it breaks at the comma
-    // (1440, 1024) or keeps one line (1100 to 1280). "Those answers" are the lead's. Design intent (Abstract p1;
-    // §2 p2: no backstops or vetoes).
-    answer: 'Augur brings those answers onchain, with no one in charge of the truth.',
-    // Augus 3: the three cards (titles, order and the facts in each), in plain words, with the jargon
+    lead: 'Whoever controls the oracle decides who gets paid.', // Ryan 3, verbatim
+    // Ryan 4: no "parties". It answers the lead in its own words: whoever controls it / no one does.
+    // Design intent (Abstract p1; §2 p2: no backstops or vetoes).
+    answer: 'With Augur, no one controls the oracle.',
+    // Augus 3: his three cards (titles, order and the facts in each), in plain words, with the jargon
     // kept to the small lines (Augus's worry). Ryan 5: "Anyone can ask" over Augus's "Any app can ask"
     // (§2 p2 "Anyone may pay a fee", §4.4.1 p7). Ryan 17: the differentiators said plainly: no
-    // governance, no multisigs, the attack cost. Every claim line fits one line in H3 (24 px). The bodies
-    // are Augus's (29 Oct 2026), trimmed so all three switch together: two lines from 1300 up and three
-    // from 1024 to 1280 (measured; they differ only in about 15 px around 1290), so the cards stay level.
+    // governance, no multisigs, the attack cost. Every claim line fits one line in H3 (24 px) and
+    // every body two lines from 1024 up, so the three cards stay level (home-v2.css).
     tenets: [
-      // "Ask" for "Submit" (the claim's verb and How it works' first step) and "a question" for "a question about
-      // a real-world event" (the lead says real-world questions). Anyone may ask, report or challenge (§2 p2,
-      // §4.4.1 p7).
-      { title: 'Permissionless', diagram: 'cross', claim: ['Anyone can ask.', 'Anyone can answer.'], body: 'Ask a question, report what happened or challenge an answer you believe is wrong.' },
-      // Owner, 29 Oct 2026: Augus's body ("i like"), with "a dispute" for "Augur's dispute process", which took
-      // it to four lines at 1024. "Company" and "developer" carry the old "not even Augur's creators". Abstract
-      // p1: truth "is not decided by token holders, governance, multisigs, or anyone else"; §2 p2: "without any
-      // centralized backstops or vetoes". Augus's "no admin keys" stays out: the whitepaper never mentions admin
-      // keys (open question for Augus). The middleman who falls away shows it.
-      { title: 'Trustless', diagram: 'authority', claim: ['No governance.', 'No multisigs.'], body: 'No company, developer or governing body can overrule the outcome of a dispute.' },
-      // Owner, 29 Oct 2026: Augus's claim, verbatim (as on /ryan-augus/), and Augus's body reworded (owner:
-      // "something better but similar"): "Designed with" for "Built with", since the design isn't deployed, and
-      // "that few can match" for "some of the strongest … of any oracle". The whitepaper's own estimate claims
-      // more: Abstract p1 "significantly more resistant to attack than all current offerings"; §3 p3, the most
-      // expensive to attack of the designs surveyed (134% of FDV); §8 p20. "False outcomes" is the paper's
-      // "fraudulent outcome" (Abstract p1). No "money" or "bond" in this section (house rule: nothing may
-      // suggest money buys the answer).
-      { title: 'Robust', diagram: 'mesh', claim: ['Harder to game.', 'Costlier to manipulate.'], body: 'Designed with economic defenses against false outcomes that few can match.' },
+      // Owner, 29 Oct 2026: v1's body, as on /ryan/ ("Ask, answer or push back."), anyone may ask, report or
+      // challenge (§2 p2, §4.4.1 p7).
+      { title: 'Permissionless', diagram: 'cross', claim: ['Anyone can ask.', 'Anyone can answer.'], body: 'Ask, answer or push back. No one has to let you in.' },
+      // Owner, 29 Oct 2026: /ryan/'s "Trustless all the way: no one can overrule an answer." with "not even Augur's
+      // creators" added in the words that keep two lines at 1024 ("not even … an answer" took three to 1100).
+      // "No multisigs." moves up into the claim so the card keeps it,
+      // in place of "No one has a veto.", which the body now says. Abstract p1: truth "is not decided by token
+      // holders, governance, multisigs, or anyone else"; §2 p2: "without any centralized backstops or vetoes";
+      // "Augur's creators" is Augus's ("or anyone else" in the paper). Augus's "no admin keys" stays out: the
+      // whitepaper never mentions admin keys (open question for Augus). The middleman who falls away shows it.
+      { title: 'Trustless', diagram: 'authority', claim: ['No governance.', 'No multisigs.'], body: 'Trustless all the way: even Augur’s creators can’t overrule answers.' },
+      // Owner, 29 Oct 2026: Augus's claim, verbatim (as on /ryan-augus/), over the body already here. The
+      // ranking is the whitepaper's own estimate: Abstract p1 "significantly more resistant to attack than all
+      // current offerings"; §3 p3, the most expensive to attack of the designs surveyed (134% of FDV); §8 p20.
+      // "Designed to" and "almost any" hedge a modelled figure for an undeployed design. No "money" or "bond"
+      // in this section (house rule: nothing may suggest money buys the answer).
+      { title: 'Robust', diagram: 'mesh', claim: ['Harder to game.', 'Costlier to manipulate.'], body: 'Designed to cost attackers more than almost any other oracle.' },
     ],
     // The statement stays v1's: "The answer is nobody’s call." On /2/ it heads the closer, above a panel of
     // the two readers (owner, 23 and 25 Oct 2026; Tenets.astro, home-v2-only.css), so each payoff says what
