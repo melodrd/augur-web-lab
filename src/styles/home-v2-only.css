@@ -643,3 +643,18 @@
 [data-armed]{opacity:0}
 @media print{:is([data-armed],[data-reveal]){opacity:1!important;transform:none!important}}
 @media(forced-colors:active){[data-armed]{opacity:1!important}}
+
+/* Hero fork (Ryan 16; Melo's too, owner, 29 Oct 2026; Ryan + Augus has none): three reader links in the
+   action area, so the page's main fork is on the first screen at every width. It takes the place of "See how it works" rather than adding to it: three
+   choices plus the whitepaper link, instead of five (Hick's law), in the place a hero's actions are
+   expected (Jakob's law). One Green link, the traders' (DESIGN.md: one Primary per view; AGENTS.md:
+   traders first), and two outline links, all 48 px tall and 12 px apart, so they read as one group;
+   the whitepaper link takes the next row, 16 px under it.
+   The three share one row where the copy column holds them (402 px at 14 px labels, 488 at 16;
+   410 leaves room for font differences). Narrower (768, 414–360), traders' link takes the full row
+   and the other two split the next, so no link is left alone on a row (no dead space) and each is a
+   wide target for a thumb (Fitts's law). */
+.home-v2 .hero-copy:has(.hero-paths){container-type:inline-size}
+.home-v2 .hero-actions:has(.hero-paths){flex-wrap:wrap;row-gap:16px}
+.home-v2 .hero-paths{display:flex;flex:1 0 100%;gap:12px}
+@container (width<410px){.home-v2 .hero-paths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.home-v2 .hero-paths>:first-child{grid-column:1/-1}}

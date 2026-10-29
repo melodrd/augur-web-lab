@@ -9,7 +9,8 @@
  * Structure from v2 (homepage-review.ts): the same UI system, so this object spreads homeV2 and overrides
  * every section it rewrites. The roadmap (Ryan 14: "looks fine") and Learn more (Ryan 15, which v2's Keep
  * going already applies: the blog and the FAQ as plain links) read v2's.
- * Ryan's UI notes: the hero's three reader links (16), the "?" tips (6) and no builder block (11). */
+ * Ryan's UI notes: the hero's three reader links (16, on Melo's too since 29 Oct 2026), the "?" tips (6) and no
+ * builder block (11). */
 import {homeV2} from './homepage-v2';
 
 export const homeV3 = {
@@ -20,18 +21,8 @@ export const homeV3 = {
     // the ending's last words on one line; two here, since five broke the line early at 1440.
     keep: 2,
     bodyEnd: 'lying is designed to cost more than ever before.',
-    // Ryan 16: the page split into three intents on the first screen, in the hero's action area (Hero.astro,
-    // home-v3.css), in place of "See how it works". Traders first, so theirs is the one Green action. Each
-    // link lands on its section's heading; the REP link targets the How it works heading, not
-    // #how-it-works, which would open the example (how-path-v2.js).
-    paths: {
-      label: 'Jump to',
-      links: [
-        { label: 'For traders', href: '#tenets-heading' },
-        { label: 'For REP holders', href: '#how-heading' },
-        { label: 'For builders', href: '#applications-heading' },
-      ],
-    },
+    // Ryan 16: the hero's three reader links, shared with Melo's (homepage-v2.ts).
+    paths: homeV2.hero.paths,
   },
   why: {
     // Ryan 3, verbatim.

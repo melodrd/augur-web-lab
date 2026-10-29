@@ -5,21 +5,6 @@
    The specificity notes at the top of home-v2.css apply here too: this sheet comes after v2's, so a
    .home-v3 rule ties a .home-v2 rule of the same shape and wins. */
 
-/* Hero fork (Ryan 16): three reader links in the action area, so the page's main fork is on the first
-   screen at every width. It takes the place of "See how it works" rather than adding to it: three
-   choices plus the whitepaper link, instead of five (Hick's law), in the place a hero's actions are
-   expected (Jakob's law). One Green link, the traders' (DESIGN.md: one Primary per view; AGENTS.md:
-   traders first), and two outline links, all 48 px tall and 12 px apart, so they read as one group;
-   the whitepaper link takes the next row, 16 px under it, as it already did on phones in v1.
-   The three share one row where the copy column holds them (402 px at 14 px labels, 488 at 16;
-   410 leaves room for font differences). Narrower (768, 414–360), traders' link takes the full row
-   and the other two split the next, so no link is left alone on a row (no dead space) and each is a
-   wide target for a thumb (Fitts's law). */
-.home-v3 .hero-copy{container-type:inline-size}
-.home-v3 .hero-actions{flex-wrap:wrap;row-gap:16px}
-.home-v3 .hero-paths{display:flex;flex:1 0 100%;gap:12px}
-@container (width<410px){.home-v3 .hero-paths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.home-v3 .hero-paths>:first-child{grid-column:1/-1}}
-
 /* Why Augur cards (Ryan 5, 6, 17): v1's titles, so the tab is sized for "Bribery-resistant" again, plus
    its "?". One width for all three, so the notches share one rhythm (as in v1): the mark ends 203 px in
    (195 where the inset is 24), and the tab ends 29 px past it, the room v1's 200 px tab left after the

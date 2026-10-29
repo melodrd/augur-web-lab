@@ -28,6 +28,19 @@ export const homeV2 = {
     bodyStart: 'Anyone can ask, anyone can answer, anyone can challenge, and ',
     keep: 2,
     bodyEnd: 'lying is designed to cost more than ever before.',
+    // Ryan 16, on Melo's too (owner, 29 Oct 2026): the page split into three intents on the first screen,
+    // in the hero's action area (Hero.astro, home-v2-only.css), in place of "See how it works". Traders
+    // first, so theirs is the one Green action. Each link lands on its section's heading; the REP link
+    // targets the How it works heading, not #how-it-works, which would open the example (how-path-v2.js).
+    // Ryan's copy reads these.
+    paths: {
+      label: 'Jump to',
+      links: [
+        { label: 'For traders', href: '#tenets-heading' },
+        { label: 'For REP holders', href: '#how-heading' },
+        { label: 'For builders', href: '#applications-heading' },
+      ],
+    },
   },
   why: {
     lead: 'Whoever controls the oracle decides who gets paid.', // Ryan 3, verbatim
