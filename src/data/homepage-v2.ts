@@ -41,6 +41,9 @@ export const homeV2 = {
         { label: 'For builders', href: '#applications-heading' },
       ],
     },
+    // No whitepaper link under the three (owner, 29 Oct 2026: "doesn't really make much sense there"); the
+    // roadmap's paper milestone still links it. Ryan's keeps its own (Ryan 16).
+    whitepaper: false,
   },
   why: {
     lead: 'Whoever controls the oracle decides who gets paid.', // Ryan 3, verbatim

@@ -8,8 +8,8 @@ import {homeCopy,type ReviewVariant} from '../../data/homepage-review';
 import {reviewInline} from './review-inline';
 // Each homepage version renders its own copy (homepage-review.ts). The versions change only the body's
 // last clause (Ryan 2); the headline and art stay (Ryan 1).
-// v3 (Ryan 16) also swaps "See how it works" for its three reader links, `hero.paths` (homepage-v3.ts);
-// the whitepaper link stays.
+// Ryan 16 swaps "See how it works" for three reader links, `hero.paths` (Ryan's and Melo's); on Ryan's
+// the whitepaper link stays. A copy with `whitepaper: false` drops it (Melo's, owner, 29 Oct 2026).
 // The hero draws the lituus flock (FlockArt.astro, hero-flock.ts) and renders its driver after the section
 // (review-inline.ts). From 1024 px a background layer fills the hero's right 70% beside the copy and
 // replaces the flock (owner, 22 Oct 2026): the live floor (hero-floor-v2.js draws it on a canvas; "Let's
@@ -21,6 +21,7 @@ const layer=('floor' as 'floor'|'video');
 const stills=layer==='floor'?'/images/hero/augur-hero-floor.webp 1920w, /images/hero/augur-hero-floor-2560.webp 2560w':'/images/hero/augur-hero-loop-poster.webp 1920w, /images/hero/augur-hero-loop-poster-2560.webp 2560w';
 const {variant}=Astro.props;const copy=homeCopy(variant);
 const paths='paths' in copy.hero?copy.hero.paths:undefined;
+const whitepaper='whitepaper' in copy.hero?copy.hero.whitepaper:true;
 // The body's last words stay on one line (home-v2-only.css), so it never ends on a widow: five, or the
 // copy's own `keep` where its ending is longer (Ryan's, which five broke early at 1440).
 const endWords=copy.hero.bodyEnd.split(' ');
@@ -46,7 +47,7 @@ const style=`--line-duration:${lines[0].end}ms;--copy-start:${t.copy.start}ms;--
   <div class="hero-copy">
    <h1 id="hero-title" class="display"><span data-hero-line style={`--line-start:${lines[0].start}ms`}>The frontier of</span>{' '}<span data-hero-line style={`--line-start:${lines[1].start}ms`}><span class="hero-emphasis">decentralized</span></span>{' '}<span data-hero-line style={`--line-start:${lines[2].start}ms`}>truth<span class="hero-dot">.</span></span></h1>
    <div class="hero-support"><p class="hero-lead">Real-world answers for onchain apps, <span class="hero-keep">controlled by no one.</span></p><p class="hero-body">{intro} {bodyStart}{endWords.slice(0,-keep).join(' ')+' '}<span class="hero-keep">{endWords.slice(-keep).join(' ')}</span></p></div>
-   <div class="hero-actions">{paths?<nav class="hero-paths" aria-label={paths.label}>{paths.links.map(({label,href},i)=><Button href={href} variant={i?'outline':'primary'}>{label}</Button>)}</nav>:<Button href="#how-it-works">See how it works</Button>}<Button href={links.whitepaper.url} variant="text" external>Read the whitepaper</Button></div>
+   <div class="hero-actions">{paths?<nav class="hero-paths" aria-label={paths.label}>{paths.links.map(({label,href},i)=><Button href={href} variant={i?'outline':'primary'}>{label}</Button>)}</nav>:<Button href="#how-it-works">See how it works</Button>}{whitepaper&&<Button href={links.whitepaper.url} variant="text" external>Read the whitepaper</Button>}</div>
   </div>
   <div class="hero-visual"><FlockArt/></div>
  </div>

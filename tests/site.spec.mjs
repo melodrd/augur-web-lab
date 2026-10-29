@@ -335,7 +335,7 @@ test('the decentralized underline sweeps in and out on every load and on hover, 
 });
 
 test('text actions draw a line under the label on hover and retract it', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/ryan-augus/');
   const action = page.locator('.hero-actions .button.text');
   const line = () => action.evaluate(element => {
     const label = element.querySelector('.button-label'), style = getComputedStyle(label, '::after');
