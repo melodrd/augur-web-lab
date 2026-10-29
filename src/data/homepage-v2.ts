@@ -46,7 +46,10 @@ export const homeV2 = {
     whitepaper: false,
   },
   why: {
-    lead: 'Whoever controls the oracle decides who gets paid.', // Ryan 3, verbatim
+    // Ryan 3, after a step from the heading (Augus, 29 Oct 2026: it jumped from "can't see the world" to "the
+    // oracle"). "Them" is the heading's smart contracts, as in the 18 Oct lead and the Learn article; the two
+    // sentences take a line each where the lead wraps (balanced, home-v2.css).
+    lead: 'An oracle has to tell them what happened. Whoever controls it decides who gets paid.',
     // Ryan 4: no "parties". It answers the lead in its own words: whoever controls it / no one does.
     // Design intent (Abstract p1; §2 p2: no backstops or vetoes).
     answer: 'With Augur, no one controls the oracle.',
@@ -60,13 +63,15 @@ export const homeV2 = {
       // challenge (§2 p2, §4.4.1 p7).
       { title: 'Permissionless', diagram: 'cross', claim: ['Anyone can ask.', 'Anyone can answer.'], body: 'Ask, answer or push back. No one has to let you in.' },
       // Owner, 29 Oct 2026: /ryan/'s "Trustless all the way: no one can overrule an answer." with "not even Augur's
-      // creators" added in the words that keep two lines at 1024 ("not even … an answer" took three to 1100).
+      // creators" added. "Trustless all the way:" went the same day (Augus's pass): it repeated the tab, and
+      // "even Augur’s creators can’t overrule answers" after it took three lines at 1024 (measured); this keeps
+      // two from 1024 to 1920 and says Augus's "no company or developer" too.
       // "No multisigs." moves up into the claim so the card keeps it,
       // in place of "No one has a veto.", which the body now says. Abstract p1: truth "is not decided by token
       // holders, governance, multisigs, or anyone else"; §2 p2: "without any centralized backstops or vetoes";
       // "Augur's creators" is Augus's ("or anyone else" in the paper). Augus's "no admin keys" stays out: the
       // whitepaper never mentions admin keys (open question for Augus). The middleman who falls away shows it.
-      { title: 'Trustless', diagram: 'authority', claim: ['No governance.', 'No multisigs.'], body: 'Trustless all the way: even Augur’s creators can’t overrule answers.' },
+      { title: 'Trustless', diagram: 'authority', claim: ['No governance.', 'No multisigs.'], body: 'No one can overrule an answer, not even Augur’s creators.' },
       // Owner, 29 Oct 2026: Augus's claim, verbatim (as on /ryan-augus/), over the body already here. The
       // ranking is the whitepaper's own estimate: Abstract p1 "significantly more resistant to attack than all
       // current offerings"; §3 p3, the most expensive to attack of the designs surveyed (134% of FDV); §8 p20.
