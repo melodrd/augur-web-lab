@@ -25,8 +25,13 @@ const paths='paths' in copy.hero?copy.hero.paths:undefined;
 // copy's own `keep` where its ending is longer (Ryan's, which five broke early at 1440).
 const endWords=copy.hero.bodyEnd.split(' ');
 const keep='keep' in copy.hero?copy.hero.keep:5;
-// A copy may also set the sentence's opening (Melo's adds "Anyone can ask").
-const bodyStart='bodyStart' in copy.hero?copy.hero.bodyStart:undefined;
+// The body opens by saying what an oracle is, before the page leans on the word (owner, 29 Oct 2026: "define
+// oracle in the hero, so that people know what it is before they keep reading"), on every version. The
+// ranking is hedged as the Robust card hedges it ("more than almost any other oracle", "one of the costliest
+// oracles to attack"); the owner's draft said "the most robust way".
+const intro='Augur Lituus is the next generation of Augur’s oracle, one of the most robust ways to put data onchain.';
+// A copy may also set the second sentence's opening (Melo's adds "Anyone can ask").
+const bodyStart='bodyStart' in copy.hero?copy.hero.bodyStart:'Anyone can answer, anyone can challenge, and ';
 const arrivalScript=heroArrival.replace('__DEV__',String(import.meta.env.DEV));
 // The arrival (heroTimeline): the headline and the support line only rise, under 300 ms, so they paint at
 // once (home-v2-only.css swaps their keyframes); the underline draws before the actions arrive and retracts
@@ -40,7 +45,7 @@ const style=`--line-duration:${lines[0].end}ms;--copy-start:${t.copy.start}ms;--
  <div class="container hero-inner">
   <div class="hero-copy">
    <h1 id="hero-title" class="display"><span data-hero-line style={`--line-start:${lines[0].start}ms`}>The frontier of</span>{' '}<span data-hero-line style={`--line-start:${lines[1].start}ms`}><span class="hero-emphasis">decentralized</span></span>{' '}<span data-hero-line style={`--line-start:${lines[2].start}ms`}>truth<span class="hero-dot">.</span></span></h1>
-   <div class="hero-support"><p class="hero-lead">Real-world answers for onchain apps, <span class="hero-keep">controlled by no one.</span></p><p class="hero-body">{bodyStart??<Fragment>Augur Lituus is the next generation of Augur's oracle. Anyone can answer, anyone can challenge, and </Fragment>}{endWords.slice(0,-keep).join(' ')+' '}<span class="hero-keep">{endWords.slice(-keep).join(' ')}</span></p></div>
+   <div class="hero-support"><p class="hero-lead">Real-world answers for onchain apps, <span class="hero-keep">controlled by no one.</span></p><p class="hero-body">{intro} {bodyStart}{endWords.slice(0,-keep).join(' ')+' '}<span class="hero-keep">{endWords.slice(-keep).join(' ')}</span></p></div>
    <div class="hero-actions">{paths?<nav class="hero-paths" aria-label={paths.label}>{paths.links.map(({label,href},i)=><Button href={href} variant={i?'outline':'primary'}>{label}</Button>)}</nav>:<Button href="#how-it-works">See how it works</Button>}<Button href={links.whitepaper.url} variant="text" external>Read the whitepaper</Button></div>
   </div>
   <div class="hero-visual"><FlockArt/></div>

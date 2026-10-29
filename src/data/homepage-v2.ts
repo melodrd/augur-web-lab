@@ -23,9 +23,9 @@ export const homeV2 = {
     // there and we're golden"), so the sentence names all three moves before the cost of lying. The
     // whitepaper's modelled estimate (Abstract p1; §7.5 p20, 46% costlier to attack than Augur's previous
     // design), hedged by "designed to"; the Robust card says the ranking against other oracles. Anyone may
-    // ask for a fee (§2 p2, §4.4.1 p7). Hero.astro renders `bodyStart` in place of v1's literal opening; the
-    // review UI keeps the ending's last two words on one line.
-    bodyStart: 'Augur Lituus is the next generation of Augur’s oracle. Anyone can ask, anyone can answer, anyone can challenge, and ',
+    // ask for a fee (§2 p2, §4.4.1 p7). Hero.astro renders `bodyStart` after its opening sentence, in place of
+    // the shared second sentence's opening; the ending's last two words stay on one line.
+    bodyStart: 'Anyone can ask, anyone can answer, anyone can challenge, and ',
     keep: 2,
     bodyEnd: 'lying is designed to cost more than ever before.',
   },
