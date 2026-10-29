@@ -78,11 +78,14 @@ export const useCaseTimeline = { threshold:.6, link:240, out:160, at:160, in:320
  * (draw), `railStagger` apart, one run: forward top to bottom, each square lighting (opacity .3 and 60% to full,
  * newcomer) over `light` from `lightAt` into the link that reaches it; back bottom to top, the picked square lighting
  * at once. The words never move.
- * The entrance, once per tab session, follows the section's reading order (scroll-motion brief, 29 Oct 2026): the
- * heading's "paid" draws over `underline` (draw) once `threshold` of the heading is in view and the section's lead has
- * landed; then, once `revealTimeline.ready` of the stage has stayed on screen for `revealTimeline.dwell` and "paid" is
- * in, the shown step's scene acts. (A walk down the steps was tried and cut: moving light through the steps while the
- * stage stayed on Ask read, in two cold reads, as a stepper that had lost its content or as focus moving by itself.)
+ * The entrance follows the section's reading order (scroll-motion brief, 29 Oct 2026): the heading's "paid" draws over
+ * `underline` (draw), once per tab session, once `threshold` of the heading is in view and the section's lead has
+ * landed; then, once `revealTimeline.ready` of the stage has stayed on screen for `revealTimeline.dwell` and, while the
+ * heading is in view, "paid" is in, the shown step's scene acts. The scene acts each time the stage comes on screen, a
+ * reload included, waiting on its first frame until then (owner, 29 Oct 2026: the "ask" animation should "start
+ * automatically … when the user scroll gets to them"). (A walk down the steps was tried and cut: moving light through
+ * the steps while the stage stayed on Ask read, in two cold reads, as a stepper that had lost its content or as focus
+ * moving by itself.)
  * Opening the example: its four sentences rise `rise` px and fade in over `row` (settle), `stagger` apart (0.65 s
  * in all). Closing is instant. */
 export const howPathTimeline = { threshold:.6, underline:560, out:160, at:160, in:320, pick:200, rail:360, railStagger:360, lightAt:300, light:280, rise:8, row:320, stagger:110 } as const;
