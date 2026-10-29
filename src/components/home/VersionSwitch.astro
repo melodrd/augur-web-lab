@@ -2,31 +2,30 @@
 import {switchInline} from './review-inline';
 import {reviewVersions,type ReviewVersion} from '../../data/homepage-review';
 // The homepage's version switch (owner, 26 Oct 2026: "improve the navbar make it more usable beautiful …
-// maybe even a dropdown … make it clear what version we're on"), on "/" and every review copy.
+// maybe even a dropdown … make it clear what version we're on"), on every homepage version.
 // A pill in the bottom-right corner: the current version's name, with its place in the list, between a
 // previous and a next step. The name opens the list (a native disclosure; links, not an ARIA menu): every
-// version numbered in the owner's order, each with one line on whose notes it shows, the current one
-// marked as the How it works steps mark theirs, and the live homepage last. On "/" (`current` unset) the
-// pill names the live homepage and has no steps. Plain links, so it works without JavaScript; the script
-// carries the section in view across versions and closes the list on Escape or a press outside it.
+// version numbered in the owner's order, Melo's at "/" first, each with one line on whose notes it shows,
+// the current one marked as the How it works steps mark theirs. The live homepage's link is gone with it
+// (owner, 29 Oct 2026). Plain links, so it works without JavaScript; the script carries the section in view
+// across versions and closes the list on Escape or a press outside it.
 // Style, nav, then script: the script reads the nav. The chevrons are Augur's square-cut glyph's stroke.
-interface Props { current?:ReviewVersion; }
+interface Props { current:ReviewVersion; }
 const {current}=Astro.props;
 const index=reviewVersions.findIndex(({version})=>version===current);
-const now=index>=0?reviewVersions[index]:undefined;
+const now=reviewVersions[index]!;
 const prev=index>0?reviewVersions[index-1]:undefined;
-const next=now&&index<reviewVersions.length-1?reviewVersions[index+1]:undefined;
+const next=index<reviewVersions.length-1?reviewVersions[index+1]:undefined;
 const left='M12 5.5 7.5 10l4.5 4.5',right='M8 5.5 12.5 10 8 14.5',up='M5.5 12 10 7.5l4.5 4.5';
 ---
 <style is:inline set:html={switchInline.style}></style><nav class="version-switch" aria-label="Homepage versions">
- {now&&(prev?<a class="vs-step" href={`/${prev.version}/`} aria-label={`Previous version: ${prev.name}`} data-vs-link><svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d={left}/></svg></a>:<span class="vs-step is-off" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d={left}/></svg></span>)}
+ {prev?<a class="vs-step" href={prev.path} aria-label={`Previous version: ${prev.name}`} data-vs-link><svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d={left}/></svg></a>:<span class="vs-step is-off" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d={left}/></svg></span>}
  <details class="vs-menu" data-vs-menu>
-  <summary class="vs-now"><span class="vs-mark" aria-hidden="true"></span><span class="vs-text"><span class="vs-kicker">{now?`Version ${index+1} of ${reviewVersions.length}`:'You’re on'}</span><span class="vs-name">{now?now.name:'Live homepage'}</span></span><span class="sr-only">. Show all versions</span><span class="vs-chev" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d={up}/></svg></span></summary>
+  <summary class="vs-now"><span class="vs-mark" aria-hidden="true"></span><span class="vs-text"><span class="vs-kicker">{`Version ${index+1} of ${reviewVersions.length}`}</span><span class="vs-name">{now.name}</span></span><span class="sr-only">. Show all versions</span><span class="vs-chev" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d={up}/></svg></span></summary>
   <div class="vs-panel">
    <p class="vs-heading" aria-hidden="true">Compare versions</p>
-   <ol class="vs-list">{reviewVersions.map(({version,name,blurb},i)=><li><a href={`/${version}/`} aria-current={version===current?'page':undefined} data-vs-link><span class="vs-index" aria-hidden="true">{i+1}</span><span class="vs-item"><span class="vs-item-name">{name}</span><span class="vs-item-blurb">{blurb}</span></span></a></li>)}</ol>
-   <a class="vs-live" href="/" aria-current={now?undefined:'page'} data-vs-link>Live homepage</a>
+   <ol class="vs-list">{reviewVersions.map(({version,path,name,blurb},i)=><li><a href={path} aria-current={version===current?'page':undefined} data-vs-link><span class="vs-index" aria-hidden="true">{i+1}</span><span class="vs-item"><span class="vs-item-name">{name}</span><span class="vs-item-blurb">{blurb}</span></span></a></li>)}</ol>
   </div>
  </details>
- {now&&(next?<a class="vs-step" href={`/${next.version}/`} aria-label={`Next version: ${next.name}`} data-vs-link><svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d={right}/></svg></a>:<span class="vs-step is-off" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d={right}/></svg></span>)}
+ {next?<a class="vs-step" href={next.path} aria-label={`Next version: ${next.name}`} data-vs-link><svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d={right}/></svg></a>:<span class="vs-step is-off" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d={right}/></svg></span>}
 </nav><script is:inline set:html={switchInline.script}></script>

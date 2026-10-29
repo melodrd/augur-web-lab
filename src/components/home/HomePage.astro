@@ -1,0 +1,27 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Hero from './Hero.astro';
+import Tenets from './Tenets.astro';
+import Applications from './Applications.astro';
+import HowItWorks from './HowItWorks.astro';
+import Roadmap from './Roadmap.astro';
+import LearnMore from './LearnMore.astro';
+import {pageClass,type ReviewVariant} from '../../data/homepage-review';
+// One composition for every homepage version (owner, 21 Oct 2026): [...version].astro renders it as "/"
+// (Melo's, the default since 29 Oct 2026), /ryan/ and /ryan-augus/ (homepage-review.ts), so the init
+// script below stays one chunk. The route fills the "version" slot (the switch and the version's sheets)
+// and the "end" slot (the section reveal).
+// <main> takes "home-v2" and each reviewer's own class (pageClass).
+interface Props { variant:ReviewVariant; noindex?:boolean; }
+const {variant,noindex}=Astro.props;
+---
+<PageLayout noindex={noindex} class={pageClass(variant)}>
+ <slot name="version" slot="version"/><slot name="end" slot="end"/><Hero variant={variant}/><Tenets variant={variant}/><Applications variant={variant}/><HowItWorks variant={variant}/><Roadmap variant={variant}/><LearnMore variant={variant}/>
+ <script>
+  // These sections exist only here, so the page starts them once from one script; each init
+  // finds its own sections. One entry instead of five identical ones keeps the JavaScript budget.
+  import {initAnswerRibbon,initTenets,initRepZone} from '../../motion/home-art';
+  import {initHomeInteractions} from '../../motion/home-interactions';
+  initAnswerRibbon();initTenets();initHomeInteractions();initRepZone();
+ </script>
+</PageLayout>

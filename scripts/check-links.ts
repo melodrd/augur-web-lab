@@ -33,18 +33,18 @@ for (const [path, html] of content) {
     }
   }
 }
-// The homepage's review copies (reviewVersions; named for whose notes they show since 26 Oct 2026): each is
-// built, and vercel.json redirects its slashless path (/ryan → /ryan/), as trailingSlash 'always' would
-// otherwise answer 404 there. Every redirect, the retired numbered paths (/1/ to /4/) included, must land on
-// a page that is built, so a removed version leaves no redirect to nowhere.
+// The homepage's versions (reviewVersions; named for whose notes they show since 26 Oct 2026): each is
+// built at its path, and vercel.json redirects its slashless name to it (/ryan → /ryan/, /melo → /), as
+// trailingSlash 'always' would otherwise answer 404 there. Every redirect, the retired numbered paths (/1/ to
+// /4/) included, must land on a page that is built, so a removed version leaves no redirect to nowhere.
 const vercel = JSON.parse(await readFile(new URL('../vercel.json', import.meta.url), 'utf8')) as { redirects?: { source: string; destination: string }[] };
 const redirects = vercel.redirects ?? [];
-for (const { version } of reviewVersions) {
-  if (!redirects.some(({ source, destination }) => source === `/${version}` && destination === `/${version}/`)) failures.push(`vercel.json: no redirect /${version} → /${version}/ for the review copy`);
-  try { await stat(join(root, version, 'index.html')); } catch { failures.push(`/${version}/: review copy missing from dist`); }
+for (const { version, path } of reviewVersions) {
+  if (!redirects.some(({ source, destination }) => source === `/${version}` && destination === path)) failures.push(`vercel.json: no redirect /${version} → ${path} for the homepage version`);
+  try { await stat(join(root, path.replace(/^\/|\/$/g, ''), 'index.html')); } catch { failures.push(`${path}: homepage version missing from dist`); }
 }
 for (const { source, destination } of redirects) {
   try { await stat(join(root, destination.replace(/^\/|\/$/g, ''), 'index.html')); } catch { failures.push(`vercel.json: redirect ${source} → ${destination} lands on no built page`); }
 }
 if (failures.length) { console.error(failures.join('\n')); process.exitCode = 1; }
-else console.log(`${htmlFiles.length} pages, ${count} anchor destinations resolve and external URLs come from the registry; ${reviewVersions.length} review copies built, each with its vercel.json redirect.`);
+else console.log(`${htmlFiles.length} pages, ${count} anchor destinations resolve and external URLs come from the registry; ${reviewVersions.length} homepage versions built, each with its vercel.json redirect.`);

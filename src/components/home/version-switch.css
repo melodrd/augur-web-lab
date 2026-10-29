@@ -4,7 +4,7 @@
    here"), its place in the list over its name, and a chevron. The list opens above the pill, its right
    edge on the pill's: each version a row with a numbered square (the How it works steps' square, Green
    for the current one, on Navy as the shown step's tab is) and its name over one line on whose notes it
-   shows; the live homepage last, quieter. 24 px in from the corner, so on phones its edge lines up with
+   shows. 24 px in from the corner, so on phones its edge lines up with
    the page gutter; at 360 the list keeps 24 px from the left edge too. It stays in view at all times
    (owner, 22 Oct 2026); it steps aside only while a focused control lies under it (version-switch.js sets
    data-cover), unless it holds focus or its list is open. The mobile menu is a modal in the top layer
@@ -41,8 +41,6 @@ a.vs-step:hover{color:var(--foreground);background:var(--background)}
 .vs-item{display:grid;min-width:0}
 .vs-item-name{font-size:15px;line-height:20px}
 .vs-item-blurb{font:400 13px/18px var(--font-body);color:var(--muted-foreground)}
-.vs-live{display:block;margin:6px 0 0;padding:12px 12px 6px;box-shadow:inset 0 1px 0 var(--web-outline);font-size:13px;line-height:18px;color:var(--muted-foreground);text-decoration:none}
-.vs-live:hover,.vs-live[aria-current]{color:var(--foreground)}
 .version-switch :is(a,summary):focus-visible{outline:2px solid var(--ring);outline-offset:-2px}
 .version-switch[data-cover]:not(:focus-within):not(:has([open])){transform:translateY(calc(100% + var(--edge) + env(safe-area-inset-bottom,0px)));opacity:0}
 html:has(#mobile-navigation[open]) .version-switch{display:none}

@@ -1,0 +1,21 @@
+---
+import {createHash} from 'node:crypto';
+import HomePage from '../components/home/HomePage.astro';
+import VersionSwitch from '../components/home/VersionSwitch.astro';
+import {switchInline,reviewInline} from '../components/home/review-inline';
+import {reviewVersions} from '../data/homepage-review';
+// The homepage, one page per version in homepage-review.ts: Melo's at "/" (owner, 29 Oct 2026: "melo is the
+// default one"; the live v1 homepage is gone), then /ryan/ and /ryan-augus/. A rest parameter, so the
+// default version's undefined param renders "/". The review copies are noindex with their own canonical;
+// every version shows the version switch. The section reveal goes in the layout's "end" slot, after the
+// footer, so it finds every section and the footer when it runs.
+export function getStaticPaths(){return reviewVersions.map(({version,path,variant})=>({params:{version:path==='/'?undefined:version},props:{variant,version,noindex:path!=='/'}}));}
+const {variant,version,noindex}=Astro.props;
+// Each version renders its sheets and scripts (review-inline.ts).
+const inline=reviewInline[variant];
+// The streamed CSP meta is emitted before body components render, so every inline string is hashed here.
+const sha=(text:string)=>`sha256-${createHash('sha256').update(text).digest('base64')}` as const;
+Astro.csp?.insertStyleHash(sha(switchInline.style));Astro.csp?.insertScriptHash(sha(switchInline.script));
+inline.styles.forEach(css=>Astro.csp?.insertStyleHash(sha(css)));Object.values(inline.scripts).forEach(js=>Astro.csp?.insertScriptHash(sha(js)));
+---
+<HomePage variant={variant} noindex={noindex}><Fragment slot="version"><VersionSwitch current={version}/>{inline.styles.map(css=><style is:inline set:html={css}></style>)}</Fragment><Fragment slot="end"><script is:inline set:html={inline.scripts.reveal}></script></Fragment></HomePage>
