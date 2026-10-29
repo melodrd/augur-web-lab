@@ -65,8 +65,8 @@ const check=signals?'4.5 10.5 8.25 14.25 15.5 7':'40 144 96 200 224 72';
 // "Relay it is"): one line through the flight, Augur Lituus and the cover, an ordered list of three steps
 // under it. The DAO card is the same query as a switch (owner, 29 Oct 2026, "implement the Switch into
 // /melo"): one row for the upgrade and its go-live switch, then Augur Lituus's larger part, both answers as
-// chips over the line for the day it's open to challenge. Copies whose DAO card still has the proposal rows
-// (Ryan's and Augus's) keep that card. All three share the head and Augur Lituus's words (`cards.query`).
+// chips over the line for the day it's open to challenge. Every review copy's DAO card is the switch (29 Oct
+// 2026: Ryan's had kept a proposal card). All three share the head and Augur Lituus's words (`cards.query`).
 // Each value that changes keeps every state in one cell, the resting one last and the others hidden from
 // screen readers, so no JavaScript, reduced motion and print show the end. Before the report Augur Lituus's
 // value is empty, never a dash (owner, 28 Oct 2026).
@@ -84,7 +84,7 @@ const cards=signals&&copy&&'cards' in copy.applications?copy.applications.cards:
     {cases.map((app,i)=><div role="tabpanel" id={`application-panel-${app.id}`} aria-labelledby={`application-tab-${app.id}`} class="case-panel" tabindex="0" hidden={i!==0}>
      <p class="case-summary">{app.summary}</p>
      {cards?<Fragment>{(card=>card&&<Fragment>
-      {'oracle' in card?<div class="case-card" data-card-kind={'market' in card?'query':'flight' in card?'relay':'switch'}>
+      <div class="case-card" data-card-kind={'market' in card?'query':'flight' in card?'relay':'switch'}>
        <div class="card-head"><span class="card-label">{card.label}<span class="sr-only">.</span></span><span class="split-states split-status" data-card="status"><span class="st-ask" aria-hidden="true"><i></i>{cards.query.statuses[0]}<b class="st-glow"></b></span><span class="st-rep" aria-hidden="true"><i></i>{cards.query.statuses[1]}</span><span class="st-fin"><span class="sr-only">Status: </span><i></i>{cards.query.statuses[2]}<span class="sr-only">.</span></span></span></div>
        <p class="card-title">{card.title}</p>
        {'market' in card?<div class="card-split">
@@ -117,14 +117,7 @@ const cards=signals&&copy&&'cards' in copy.applications?copy.applications.cards:
          <span class="split-wait choice-wait" data-card="wait" aria-hidden="true"><i></i></span>
         </div>
        </div>}
-      </div>:<div class="case-card" data-card-kind="proposal">
-       <div class="card-head"><span class="card-label">{card.label}<span class="sr-only">.</span></span><span class="card-status"><span class="status-wait" data-card="status-wait" aria-hidden="true"><i></i>{card.pending}</span><span class="status-done" data-card="status-done">{card.resolved}</span></span></div>
-       <p class="card-title">{card.title}</p>
-       <div class="card-body">
-        {'details' in card&&<dl class="card-details">{card.details.map(detail=><div class="card-detail"><dt>{detail.name}</dt><dd>{'pending' in detail?<Fragment><span class="value-was" data-card="was" aria-hidden="true">{detail.pending}</span><span class="value-now" data-card="now">{detail.value}</span><span class="detail-scan" data-card="scan" aria-hidden="true"></span></Fragment>:detail.value}</dd></div>)}</dl>}
-       </div>
-       <p class="card-foot" data-card="foot"><span class="card-by">{cards.answeredBy}<span class="sr-only">.</span></span> <span class="card-result" data-card="result">{card.result}</span></p>
-      </div>}
+      </div>
       <div class="case-builders"><p class="builders-cue">{cards.cue}</p><p class="builders-line">{card.builders}</p></div>
      </Fragment>)(cards[app.id])}</Fragment>:<Fragment>
      <p class="case-question">{app.question}</p>

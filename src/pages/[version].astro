@@ -5,7 +5,7 @@ import VersionSwitch from '../components/home/VersionSwitch.astro';
 import {switchInline,reviewInline} from '../components/home/review-inline';
 import {reviewVersions,type ReviewVersion} from '../data/homepage-review';
 // The homepage's review copies; "/" stays the live page. Since 26 Oct 2026 (owner) they are named for whose
-// notes they show, in the owner's order: /ryan/, /augus/, /ryan-augus/ and /melo/ (the list and the copy
+// notes they show, in the owner's order: /ryan/, /ryan-augus/ and /melo/ (the list and the copy
 // each reads: data/homepage-review.ts; the old /1/ to /4/ redirect in vercel.json). One dynamic route, not
 // static pages: Astro writes one build-wide CSP hash list into every page, in route order, and static
 // routes would reorder that list on "/" as well. A dynamic route sorts after every static one, just before

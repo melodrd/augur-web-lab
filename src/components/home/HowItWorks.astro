@@ -34,9 +34,10 @@ const path=ownerVersion(variant)&&how&&'path' in how?how.path:undefined;
 const [,reported,challenged]=ledger,finalAnswer=walkthrough[walkthrough.length-1]!.outcome;
 const reps=(value:number)=>`${value} REP`;
 const values:Record<string,string>={fee:reps(rep.fee),bond:reps(rep.bond),challenge:reps(rep.challenge),share:reps(rep.share),burned:reps(rep.burned),reported:reported!.stake!,challenged:challenged!.stake!,final:finalAnswer!,question:query.title};
-// The example's sentences (homepage-v2.ts): {name} is the value, **…** bold and {+name} the value bold in Green.
+// The example's sentences (homepage-v2.ts): {name} is the value, **…** bold, and {+name} the value bold in Green
+// ({+words} with no such value sets the words themselves, as {+the reward}).
 const value=(text:string)=>text.replace(/\{(\w+)\}/g,(token,name:string)=>values[name]??token);
-const story=(text:string)=>text.split(/(\*\*.+?\*\*|\{\+\w+\})/).filter(Boolean).map(part=>part.startsWith('**')?{value:value(part.slice(2,-2)),win:false}:part.startsWith('{+')?{value:value(`{${part.slice(2)}`),win:true}:value(part));
+const story=(text:string)=>text.split(/(\*\*.+?\*\*|\{\+[^}]+\})/).filter(Boolean).map(part=>part.startsWith('**')?{value:value(part.slice(2,-2)),win:false}:part.startsWith('{+')?{value:values[part.slice(2,-1)]??part.slice(2,-1),win:true}:value(part));
 ---
 <section class="how-it-works section" id="how-it-works" aria-labelledby="how-heading" data-how-v2={review?'':undefined}><div class="container">
  {path?<Fragment>

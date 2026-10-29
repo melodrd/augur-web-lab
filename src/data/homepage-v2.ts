@@ -261,6 +261,11 @@ export const homeV2 = {
       // for an overturned report isn't in §4.4.3, so it has no figure; it goes to the first to back the final
       // answer, you here. The reporter's 15 REP splits into your 12 and 3 burned. `label` names the card for
       // screen readers.
+      // The fee isn't the reward (review, 29 Oct 2026): it splits into Reporter Pay, a clock auction from 0, and a
+      // burned rest the protocol keeps as large as it can (§4.4.2–4.4.4; §4.5 pays 2.5 of 15 REP and burns
+      // 12.5), so Ask says part of it pays. Reporter Pay goes to the first to stake on the final answer (§4.3.1),
+      // hence "backs", which covers your challenge. Get paid lists each gain on its own, both Green, so 12 REP
+      // never reads as the total.
       // Facts behind the wording: a question comes with rules for judging it (walkthrough.ts's fields); the fee
       // isn't fixed, so 15 REP is "in this example" (the whitepaper's §4.5 figure; who sets its size isn't
       // claimed); anyone can report (§2, rep.ts), so the reporter never reads as the team; a report stakes the
@@ -269,10 +274,10 @@ export const homeV2 = {
       example: {
         label: 'An example, step by step',
         story: [
-          'Say someone asks, “{question}” They set the rules for judging it and pay a fee in REP, which funds a reward for the right answer. In this example, the fee is **{fee}**.',
+          'Say someone asks, “{question}” They set the rules for judging it and pay a fee in REP. Part of it pays whoever first backs the right answer; the rest is burned. In this example, the fee is **{fee}**.',
           'Anyone can report. Here, someone reports **{reported}** and stakes **{bond}** on it, the same as the fee.',
           'You think the reporter is wrong, so you challenge with **{challenged}** and stake **{challenge}** on it, double theirs. The time to challenge starts again, and now anyone can challenge you.',
-          'No one challenges you in time, so the final answer is **{final}**. You get your {challenge} back, plus {+share} of the reporter’s stake and the reward. The other {burned} of theirs is burned.',
+          'No one challenges you in time, so the final answer is **{final}**. You get your {challenge} back, plus {+share} from the reporter’s stake, plus {+the reward}. The other {burned} of their stake is burned.',
         ],
       },
     },

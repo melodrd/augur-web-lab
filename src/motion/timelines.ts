@@ -80,13 +80,9 @@ export const applicationTimeline = { threshold:.6, out:160, start:120, enter:640
  * is read before the light moves on). Augur Lituus, the larger part, shows both answers: at `reported` Yes's
  * ring lights, the line for the day it's open to challenge fills until `final`, then the Green sweeps across
  * Yes over `in`, its checked label shows `pick` later, and No steps back to `other`. At `paid` the switch slides
- * back off over `slide`, its knob turning Green halfway, and the status turns to Blocked.
- * Ryan's and Augus's DAO card, a proposal, loops on the same cycle: its pending words show from the reset, and
- * from `focus` a Mist line runs under its pending check over `scan`. At `reported` each pending word and that
- * line go over `swapOut`, and each answer comes in from `swapIn` over `swap` (a value rising `rise` px, the
- * status from `statusFrom` scale); the footer rises `footRise` px from `footAt` over `foot`, and the result
- * fades in from `resultAt` over `result`. */
-export const useCaseTimeline = { threshold:.6, link:240, out:160, at:160, in:320, scan:600, swapOut:140, swapIn:120, swap:320, rise:4, statusFrom:.92, footAt:160, foot:420, footRise:6, resultAt:520, result:320, loop:{ cycle:12000, fade:600, reset:400, resetOut:300, resetIn:400, out:200, in:520, light:400, dim:.35, past:.5, slide:55, glow:1400, focus:1400, ticks:[1800, 2400, 3000], reported:4400, waitIn:280, final:6400, seal:420, paid:7200, rest:8300 }, relay:{ depart:1200, pay:640, arrive:560 }, switch:{ close:2600, slide:480, pick:240, other:.4 } } as const;
+ * back off over `slide`, its knob turning Green halfway, and the status turns to Blocked. The query's status chip
+ * comes in from `statusFrom` scale. */
+export const useCaseTimeline = { threshold:.6, link:240, out:160, at:160, in:320, swapIn:120, statusFrom:.92, loop:{ cycle:12000, fade:600, reset:400, resetOut:300, resetIn:400, out:200, in:520, light:400, dim:.35, past:.5, slide:55, glow:1400, focus:1400, ticks:[1800, 2400, 3000], reported:4400, waitIn:280, final:6400, seal:420, paid:7200, rest:8300 }, relay:{ depart:1200, pay:640, arrive:560 }, switch:{ close:2600, slide:480, pick:240, other:.4 } } as const;
 /** How it works on /2/ (owner, 25 Oct 2026, item 4: "build A on /2", four steps over one stage; how-path-v2.js,
  * which gets this, `easing` and how-scenes.ts's acts written in). Steps are picked by press or key, never hover
  * (owner, 26 Oct 2026). Once per tab session, after `threshold` of the stage is in view, the shown step's scene acts from

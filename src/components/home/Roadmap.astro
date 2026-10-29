@@ -4,7 +4,7 @@ import { links } from '../../data/links';
 import Icon from '../primitives/Icon.astro';
 import {homeCopy,type HomeVariant} from '../../data/homepage-review';
 // A review version may set its own two-line heading (`roadmap.heading`; Augus's "Coming soon?",
-// homepage-v5.ts). Every other page keeps the literal one, so "/" is unchanged.
+// homepage-v4.ts). Every other page keeps the literal one, so "/" is unchanged.
 interface Props { variant?:HomeVariant; }
 const {variant='v1'}=Astro.props;const copy=homeCopy(variant);
 const heading=copy&&'roadmap' in copy?copy.roadmap.heading:undefined;

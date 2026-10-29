@@ -56,20 +56,14 @@
 @media(min-width:1024px) and (max-width:1200px){.home-v2 .case-tabs .case-tab{padding:24px}.home-v2 .case-stage .case-panel{padding:32px}}
 
 /* The right box: a product running on Augur Lituus, as its users see it, and one paragraph for the
-   people who build it. The card is Navy like How it works' query card: its label and status, a title, the
-   product's own data and a footer saying who answered and what the product did. Green shows only the
-   answer and what it changed. Each card is rendered answered; the pending words and Mist bars sit under
+   people who build it. The card is Navy like How it works' query card: its label and status, a title and
+   the product's part beside Augur Lituus's. Green shows only the
+   answer and what it changed. Each card is rendered answered; the waiting words sit under
    it at opacity 0 for the play. */
 .home-v2 .case-card{align-self:stretch;margin-bottom:16px;padding:24px;background:var(--background)}
 .home-v2 .card-head{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:28px}
 .home-v2 .card-label{font:400 13px/16px var(--font-body);color:var(--muted-foreground)}
-.home-v2 .card-status{display:inline-grid}
-.home-v2 .card-status>span{grid-area:1/1;justify-self:end;display:inline-flex;align-items:center;gap:8px;height:28px;padding:0 10px;font:600 13px/16px var(--font-heading);white-space:nowrap}
-.home-v2 .status-wait{box-shadow:inset 0 0 0 1px var(--web-outline);color:var(--muted-foreground);opacity:0}
-.home-v2 .status-wait i{width:6px;height:6px;background:var(--mark-participant,#71728A)}
-.home-v2 .status-done{background:var(--primary);color:var(--background)}
 .home-v2 .card-title{margin:16px 0 0;font:600 22px/28px var(--font-heading);letter-spacing:-.01em;color:var(--foreground);text-wrap:balance}
-.home-v2 .card-body{margin-top:24px}
 /* Market: a query split in two (owner, 26 Oct 2026, design D of the use-case motion board: "Split it is").
    The query's status in the card's corner (How it works' words); the market's price on the left; Augur
    Lituus on the right, its answer and what the status means. The right cell is the wider (1 : 1.4), so the answer leads and both
@@ -236,22 +230,6 @@
 .home-v2 :is(.switch-line,.choice-row){flex-wrap:wrap;row-gap:0}
 .home-v2 .choice-note{flex-basis:100%;margin:4px 0 0}
 }
-/* Details (the proposal's three rows): label left, value right. A pending value ("Checking…") settles into
-   its answer in Green. While the proposal is checked, a 2 px Mist line runs 5 px under its row; it shows only
-   during the play. */
-.home-v2 .card-details{display:grid;row-gap:12px;margin:0}
-.home-v2 .card-detail{position:relative;display:flex;align-items:baseline;justify-content:space-between;gap:16px}
-.home-v2 .detail-scan{position:absolute;left:0;right:0;bottom:-7px;height:2px;background:var(--augur-color-surface-dark-mist);transform-origin:left;opacity:0}
-.home-v2 .card-detail dt{font-size:14px;line-height:20px;color:var(--muted-foreground)}
-.home-v2 .card-detail dd{display:inline-grid;margin:0;font:600 14px/20px var(--font-heading);color:var(--foreground)}
-.home-v2 .card-detail dd>span{grid-area:1/1;justify-self:end}
-.home-v2 .value-was{color:var(--muted-foreground);opacity:0}
-.home-v2 .value-now{color:var(--primary)}
-/* The footer: who answered, and what the product did. */
-.home-v2 .card-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:24px 0 0;padding-top:16px;border-top:1px solid var(--web-outline)}
-.home-v2 .card-by{display:inline-flex;align-items:center;gap:8px;font:600 13px/16px var(--font-heading);color:var(--foreground)}
-.home-v2 .card-by::before{content:'';width:8px;height:8px;background:var(--primary)}
-.home-v2 .card-result{font:400 13px/16px var(--font-body);color:var(--muted-foreground);text-align:right}
 /* For builders, in its own element (owner, 26 Oct 2026: "the 'for builders' should be inside an element"):
    a 1 px outlined box, lighter than the Navy card so the example stays the hero, its boundary marking it as
    a second message for a second audience (the Law of Common Region). The cue as the Why Augur closer's
@@ -288,13 +266,12 @@
 @media(forced-colors:active){
 .home-v2 .case-tabs .case-tab::before{display:none}
 .home-v2 .case-tabs .case-tab{outline:1px solid CanvasText;outline-offset:-1px}
-.home-v2 .case-link,.home-v2 .card-by::before,.home-v2 .split-by::before,.home-v2 .builders-cue::before,.home-v2 .builder-reasons strong::before{forced-color-adjust:none;background:Highlight}
+.home-v2 .case-link,.home-v2 .split-by::before,.home-v2 .builders-cue::before,.home-v2 .builder-reasons strong::before{forced-color-adjust:none;background:Highlight}
 .home-v2 .st-fin{forced-color-adjust:none;background:Highlight;color:HighlightText}
 .home-v2 :is(.st-ask,.st-rep){outline:1px solid CanvasText;outline-offset:-1px}
 .home-v2 .split-wait{forced-color-adjust:none;background:GrayText}
 .home-v2 .split-wait i{forced-color-adjust:none;background:CanvasText}
 .home-v2 .case-card,.home-v2 .builder-case :is(.builder-reasons,.builder-ask){outline:1px solid CanvasText}
-.home-v2 .status-done{forced-color-adjust:none;background:Highlight;color:HighlightText}
 .home-v2 :is(.relay-done,.relay-wait,.relay-stop.is-flight,.relay-stop.is-oracle){forced-color-adjust:none;background:CanvasText}
 .home-v2 .relay-run{forced-color-adjust:none;background:GrayText}
 .home-v2 :is(.relay-paid,.relay-stop.is-paid,.relay-seal),.home-v2 .relay-step::before,.home-v2 .relay-step.is-oracle::after{forced-color-adjust:none;background:Highlight;color:HighlightText}

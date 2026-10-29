@@ -60,5 +60,4 @@ export const reviewInline: Record<ReviewVariant, Inline> = {
   v2: { styles: ui.styles.filter(Boolean), scripts: ui.scripts },
   v3: { styles: [...ui.styles, v3Style].filter(Boolean), scripts: { ...ui.scripts, tips: compact(tipsScript) } },
   v4: { styles: ui.styles.filter(Boolean), scripts: ui.scripts },
-  v5: { styles: ui.styles.filter(Boolean), scripts: ui.scripts },
 };

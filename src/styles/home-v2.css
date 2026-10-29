@@ -1,4 +1,4 @@
-/* Homepage v2 (owner, 21 Oct 2026), the UI system of every review version (/ryan/, /augus/, /ryan-augus/, /melo/). Loaded as a string (review-inline.ts) and rendered
+/* Homepage v2 (owner, 21 Oct 2026), the UI system of every review version (/ryan/, /ryan-augus/, /melo/). Loaded as a string (review-inline.ts) and rendered
    inline on those pages alone, so none of it reaches "/", not even as a CSP hash. Every rule starts with
    .home-v2 (the review <main>; Ryan's adds .home-v3) and comes after the page's own styles, so it wins a specificity tie.
    Astro adds one [data-astro-cid-…] to each compound of a component rule: `.tenet-card` ships as

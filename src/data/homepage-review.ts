@@ -1,14 +1,15 @@
 /** The homepage's review versions: which versions exist, the copy each reads, and their order.
  * "/" is the live homepage and renders v1 with no props. src/pages/[version].astro renders the review
  * copies from `reviewVersions`, and the version switch lists them in this order (owner, 26 Oct 2026:
- * "Ryan", "Augus", "Ryan+Augus", "Melo"; v1's frozen copy at /1/ is gone, and the old numbered paths
- * redirect in vercel.json):
- * - /ryan/ (v3): Ryan's 17 notes only, literal (homepage-v3.ts).
- * - /augus/ (v5): Augus's notes only, literal: his 18 Oct section notes and his notes 1–3 (homepage-v5.ts).
- * - /ryan-augus/ (v4): Augus's marks on Ryan's notes, literal (homepage-v4.ts).
+ * "Ryan", "Ryan+Augus", "Melo"; v1's frozen copy at /1/ is gone, and the old numbered paths redirect in
+ * vercel.json). Since 29 Oct 2026 (owner: "Remove the Augus only version") Augus's notes live in Ryan +
+ * Augus, and /augus/ redirects there:
+ * - /ryan/ (v3): Ryan's 17 notes, every section rewritten from them (homepage-v3.ts).
+ * - /ryan-augus/ (v4): Ryan's notes as Augus marked them, his notes 1–3 and his 18 Oct section notes,
+ *   every section rewritten from them (homepage-v4.ts).
  * - /melo/ (v2): the owner's version: Ryan's notes as Augus marked them, with fact checks, wording fixes
  *   and the owner's own design (homepage-v2.ts).
- * The variant ids stay v2 to v5 (their copy files, sheets and classes keep those names); `name` is what
+ * The variant ids stay v2 to v4 (their copy files, sheets and classes keep those names); `name` is what
  * the switch shows and `version` is the path.
  * Every version shares one UI system (owner, 26 Oct 2026: "all versions should now be similar to v2 in
  * terms of animations/motions/structure. except UI changes suggested by the team"): the v2 markup,
@@ -22,17 +23,15 @@
 import {homeV2} from './homepage-v2';
 import {homeV3} from './homepage-v3';
 import {homeV4} from './homepage-v4';
-import {homeV5} from './homepage-v5';
 
-export type HomeVariant = 'v1' | 'v2' | 'v3' | 'v4' | 'v5';
+export type HomeVariant = 'v1' | 'v2' | 'v3' | 'v4';
 export type ReviewVariant = Exclude<HomeVariant, 'v1'>;
 
 // One list for the route's getStaticPaths and the switch's links, in the switch's order. `blurb` is the
 // switch's one line on whose notes a version shows.
 export const reviewVersions = [
-  { version: 'ryan', variant: 'v3', name: 'Ryan', blurb: 'Ryan’s notes, as he wrote them' },
-  { version: 'augus', variant: 'v5', name: 'Augus', blurb: 'Augus’s notes, as he wrote them' },
-  { version: 'ryan-augus', variant: 'v4', name: 'Ryan + Augus', blurb: 'Ryan’s notes, as Augus marked them' },
+  { version: 'ryan', variant: 'v3', name: 'Ryan', blurb: 'Ryan’s notes, in every section' },
+  { version: 'ryan-augus', variant: 'v4', name: 'Ryan + Augus', blurb: 'Ryan’s notes as Augus marked them, plus Augus’s' },
   { version: 'melo', variant: 'v2', name: 'Melo', blurb: 'Melo’s version, with the notes that fit' },
 ] as const;
 export type ReviewVersion = (typeof reviewVersions)[number]['version'];
@@ -41,11 +40,11 @@ export type ReviewVersion = (typeof reviewVersions)[number]['version'];
  * pages' CSP; scripts/check-links.ts checks that vercel.json redirects each copy's slashless path. */
 export const homePaths: readonly string[] = ['/', ...reviewVersions.map(({ version }) => `/${version}/`)];
 
-const copies = { v1: undefined, v2: homeV2, v3: homeV3, v4: homeV4, v5: homeV5 } as const;
+const copies = { v1: undefined, v2: homeV2, v3: homeV3, v4: homeV4 } as const;
 /** The version's copy, or undefined for v1 (which keeps its copy in the components). */
 export const homeCopy = (variant: HomeVariant) => copies[variant];
 
-const classes = { v1: undefined, v2: 'home-v2', v3: 'home-v2 home-v3', v4: 'home-v2', v5: 'home-v2' } as const;
+const classes = { v1: undefined, v2: 'home-v2', v3: 'home-v2 home-v3', v4: 'home-v2' } as const;
 /** <main>'s class: none on "/", so v1's markup is unchanged. */
 export const pageClass = (variant: HomeVariant) => classes[variant];
 

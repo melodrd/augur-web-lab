@@ -11,7 +11,7 @@ import {createHash} from 'node:crypto';
 import {switchInline} from '../components/home/review-inline';
 import {pageClass,type HomeVariant} from '../data/homepage-review';
 // One composition for "/" and its review copies (owner, 21 Oct 2026): [version].astro renders this page
-// as /ryan/, /augus/, /ryan-augus/ and /melo/ (homepage-review.ts), so the init script below stays one
+// as /ryan/, /ryan-augus/ and /melo/ (homepage-review.ts), so the init script below stays one
 // chunk. "/" passes no props: v1, indexable, no class. Since 22 Oct 2026 (owner) "/" shows the version
 // switch too; with v1's copy gone from the list (26 Oct 2026) it shows "/" as the live homepage, and
 // offers the four versions. Its inline style and script are hashed here.

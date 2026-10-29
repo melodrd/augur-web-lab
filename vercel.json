@@ -6,7 +6,8 @@
   "outputDirectory": "dist",
   "redirects": [
     {"source":"/ryan","destination":"/ryan/","permanent":false},
-    {"source":"/augus","destination":"/augus/","permanent":false},
+    {"source":"/augus","destination":"/ryan-augus/","permanent":false},
+    {"source":"/augus/","destination":"/ryan-augus/","permanent":false},
     {"source":"/ryan-augus","destination":"/ryan-augus/","permanent":false},
     {"source":"/melo","destination":"/melo/","permanent":false},
     {"source":"/1","destination":"/","permanent":false},
