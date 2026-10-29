@@ -99,11 +99,11 @@
         ],
         [
           "melo:why/3",
-          "An oracle has to tell them what happened. Whoever controls it decides who gets paid."
+          "Blockchain applications need answers to real‑world questions before they can make payments, settle agreements or take action."
         ],
         [
           "melo:why/4",
-          "With Augur, no one controls the oracle."
+          "Augur brings those answers onchain, with no one in charge of the truth."
         ],
         [
           "239:485",
@@ -119,7 +119,7 @@
         ],
         [
           "melo:why/7",
-          "Ask, answer or push back. No one has to let you in."
+          "Ask a question, report what happened or challenge an answer you believe is wrong."
         ],
         [
           "239:495",
@@ -135,7 +135,7 @@
         ],
         [
           "melo:why/10",
-          "No one can overrule an answer, not even Augur's creators."
+          "No company, developer or governing body can overrule the outcome of a dispute."
         ],
         [
           "melo:why/11",
@@ -151,7 +151,7 @@
         ],
         [
           "melo:why/14",
-          "Designed to cost attackers more than almost any other oracle."
+          "Designed with economic defenses against false outcomes that few can match."
         ],
         [
           "melo:why/15",
