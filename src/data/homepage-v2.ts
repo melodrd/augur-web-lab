@@ -55,7 +55,7 @@ export const homeV2 = {
     // Augus's band, cut to what the lead asks for: "tells them", then his "in charge of the truth", which
     // echoes the headline. One line from 1024 up (measured). Design intent (Abstract p1; §2 p2: no backstops
     // or vetoes).
-    answer: 'Augur tells them, with no one in charge of the truth.',
+    answer: 'With Augur, no middleman controls the answers.',
     // Augus 3: his three cards (titles, order and the facts in each), in plain words, with the jargon
     // kept to the small lines (Augus's worry). Ryan 5: "Anyone can ask" over Augus's "Any app can ask"
     // (§2 p2 "Anyone may pay a fee", §4.4.1 p7). Ryan 17: the differentiators said plainly: no
