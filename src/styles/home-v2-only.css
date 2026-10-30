@@ -530,8 +530,14 @@
 .home-v2 .how-claim .setup{color:var(--muted-foreground)}
 .home-v2 .how-body{max-width:30em;margin:16px 0 0;font-size:18px;line-height:28px;color:var(--muted-foreground);text-wrap:pretty}
 /* The section's one control, the site's outline button (hover, focus and press from base.css), under the stage.
-   The example opens below it, so it never moves; its chevron turns with it (home-v2.css). */
-.home-v2 .how-more{display:flex;width:fit-content;margin-top:32px}
+   The example opens below it, so it never moves; its chevron turns with it (home-v2.css). It never changes size
+   either: both labels share one cell and the one not in use is only invisible, so the button keeps the longer
+   label's width open and closed, and a press changes only the words and the chevron. Swapped with display, it
+   shrank 64 px around "Hide the example". The shorter label is centred in the cell: at the start it left a hole
+   before the chevron that read as a select field. */
+.home-v2 .how-more{display:grid;grid-template-columns:auto auto;width:fit-content;margin-top:32px}
+.home-v2 .how-more :is(.how-toggle-open,.how-toggle-close){grid-area:1/1;text-align:center}
+.home-v2 .how-more[aria-expanded=true] .how-toggle-open,.home-v2 .how-more:not([aria-expanded=true]) .how-toggle-close{visibility:hidden}
 /* The example (owner, 29 Oct 2026: "I love the story in words", sketch D of the example board): one Navy card, like
    the stage, holding one question's story in four plain sentences, one per step, each under that step's name in a
    left column, so the card reads with the steps above it. Each name is Sora 600 18 in Paper (owner, 29 Oct 2026:

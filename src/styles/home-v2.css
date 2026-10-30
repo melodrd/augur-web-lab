@@ -74,8 +74,9 @@
 @media(min-width:1024px){.home-v2 .how-it-works .section-heading{grid-template-areas:"title lead" "title action";row-gap:24px}.home-v2 .how-it-works h2{grid-area:title}.home-v2 .how-it-works .section-heading .lead{grid-area:lead}.home-v2 .how-toggle{grid-area:action}}
 /* The toggle is the section's one action, an outline button like the builder's "Talk to us". Its
    words say what a press does next ("Walk through an example" / "Hide the example") and aria-expanded
-   carries the state; the chevron turns with it. */
-.home-v2 .how-toggle{justify-self:start}.home-v2 .how-toggle[aria-expanded=true] .how-toggle-open,.home-v2 .how-toggle:not([aria-expanded=true]) .how-toggle-close{display:none}
+   carries the state; the chevron turns with it. Which words show is home-v2-only.css's (.how-more),
+   beside the box that keeps one width for both. */
+.home-v2 .how-toggle{justify-self:start}
 .home-v2 .how-toggle .web-icon{transition:transform 180ms var(--ease-reveal)}.home-v2 .how-toggle[aria-expanded=true] .web-icon{transform:rotate(180deg)}
 /* Closed, the example is hidden="until-found", so find in page and text fragments can still open it
    (Chromium, Firefox). base.css's [hidden]{display:none!important} would defeat that, so this one
