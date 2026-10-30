@@ -562,29 +562,33 @@
 .home-v2 .holding-point p{margin:0;font-size:16px;line-height:24px;color:var(--muted-foreground);text-wrap:pretty}
 .home-v2 .holding-point strong{display:block;margin-bottom:4px;font:600 18px/26px var(--font-heading);color:var(--foreground)}
 /* Holding REP as one Navy card (owner, 29 Oct 2026, round 5 of the Holding REP board: text alone "looks weird"),
-   where a version's points carry a `label` (Melo's), on one strict grid (owner, same day: "ALIGN THIS"). A header
-   line: the title at the left and the outline button at the right, centred on one line over a hairline. Then each
-   point is a row on the heading row's grid inside the card: its term (Sora 600 20/28, Earn's Green) on the title's
-   left edge, its sentence (17/26 Pewter) on the stage's left edge (48 + 452 + 80 = the 500 + 80 column), the two on
-   one baseline, a hairline between rows. The button's right edge is the sentences' right edge. Versions without
-   labels keep the squares. */
-.home-v2 .holding.has-labels{display:block;padding:24px 48px 28px;border-top:0;background:var(--background)}
-.home-v2 .holding.has-labels .holding-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;margin:0;padding-bottom:20px;border-bottom:1px solid var(--web-outline)}
-.home-v2 .holding.has-labels .holding-head .button{display:inline-flex;width:fit-content}
-.home-v2 .holding.has-labels .holding-points{grid-template-columns:minmax(0,1fr);row-gap:0}
-.home-v2 .holding.has-labels .holding-point{grid-template-columns:minmax(0,452fr) minmax(0,620fr);column-gap:80px;align-items:baseline;padding:20px 0;border-top:1px solid var(--web-outline)}
-.home-v2 .holding.has-labels .holding-point:first-child{border-top:0}
-.home-v2 .holding.has-labels .holding-point:last-child{padding-bottom:0}
-.home-v2 .holding.has-labels .holding-point p{font-size:17px;line-height:26px}
-.home-v2 .holding-label{font:600 20px/28px var(--font-heading);letter-spacing:-.01em;color:var(--foreground)}
-.home-v2 .holding-point.is-earn .holding-label{color:var(--primary)}
-/* Under 1280 the card's padding steps down. At 1200 and under the heading row's gap is 48, so the steps reach across
-   48 to the stage, and the stage tightens. */
-@media(max-width:1279px){.home-v2 .example{padding:24px}}
-@media(max-width:1200px){.home-v2 .holding-points,.home-v2 .holding.has-labels{column-gap:48px}.home-v2 .holding.has-labels{padding:20px 32px 24px}.home-v2 .holding.has-labels .holding-point{grid-template-columns:minmax(0,468fr) minmax(0,636fr);column-gap:48px}.home-v2 .how-path{grid-template-columns:minmax(0,500fr) 48px minmax(0,668fr)}.home-v2 .how-path-panel{padding:32px}}
+   where a version's points carry a `label`, on one strict grid (owner, same day: "ALIGN THIS"). As spec rows its
+   terms read "too small, out of focus", and as two cells split by a hairline it was the Why Augur closer again
+   ("too similar", same day). So it takes the section's own opening form, a heading row, then a foot. The heading is
+   the question and its answer, setup and payoff as on the stage: "Holding REP?" in Pewter, then the earning point's
+   term in Green (both Sora 600 28/36), on the card's left edge; the point's sentence (18/28 Pewter) stands beside
+   them on the stage's words (580 + 48), as a lead stands beside its heading. The foot, under a hairline the card's
+   width: the other points, quieter as the fork should be, each term (Sora 600 Paper) run into its sentence (16/24
+   Pewter); then the outline button at the right, where reading ends. Versions without labels keep the squares. */
+.home-v2 .holding.has-labels{padding:0;border-top:0;background:var(--background)}
+.home-v2 .holding-top{display:grid;grid-template-columns:minmax(0,500fr) 80px minmax(0,668fr);align-items:center;padding:32px 0}
+.home-v2 .holding-top :is(.holding-title,.holding-earn){grid-column:1/3;margin:0;padding-left:48px;font:600 28px/36px var(--font-heading);letter-spacing:-.01em}
+.home-v2 .holding-top .holding-title{color:var(--muted-foreground)}
+.home-v2 .holding-earn{color:var(--primary)}
+.home-v2 .holding-line{grid-column:3;grid-row:1/3;margin:0;padding:0 48px;font-size:18px;line-height:28px;color:var(--muted-foreground);text-wrap:pretty}
+.home-v2 .holding-foot{display:flex;align-items:center;justify-content:space-between;gap:16px 32px;padding:20px 48px;border-top:1px solid var(--web-outline)}
+.home-v2 .holding-notes{display:grid;row-gap:8px;margin:0;padding:0;list-style:none;font-size:16px;line-height:24px;color:var(--muted-foreground);text-wrap:pretty}
+.home-v2 .holding-notes .holding-label{margin-right:4px;font-family:var(--font-heading);font-weight:600;color:var(--foreground)}
+.home-v2 .holding-foot .button{flex:none}
+/* Under 1280 the card's padding steps down, and Holding REP's heading to 24/32 and its sentence to 16/24. At 1200 and
+   under the heading row's gap is 48, so the steps reach across 48 to the stage, the stage tightens and Holding REP's
+   sentence follows its words. */
+@media(max-width:1279px){.home-v2 .example{padding:24px}.home-v2 .holding-top :is(.holding-title,.holding-earn){font-size:24px;line-height:32px}.home-v2 .holding-line{font-size:16px;line-height:24px}}
+@media(max-width:1200px){.home-v2 .holding-points{column-gap:48px}.home-v2 .holding-top{grid-template-columns:minmax(0,500fr) 48px minmax(0,668fr);padding:24px 0}.home-v2 .holding-top :is(.holding-title,.holding-earn){padding-left:32px}.home-v2 .holding-line{padding:0 32px}.home-v2 .holding-foot{padding:16px 32px}.home-v2 .how-path{grid-template-columns:minmax(0,500fr) 48px minmax(0,668fr)}.home-v2 .how-path-panel{padding:32px}}
 /* Below 1024 the steps stand over the stage, 4 px above it, each row as tall as its words; the scene is centred, at
-   most 440 px; the example's step names narrow to 120, and Holding REP's points split the width evenly. Below 768
-   the example's names stand over their sentences and the points stack. */
+   most 440 px; the example's step names narrow to 120, and Holding REP's heading row keeps its two columns. Below 768
+   the example's names stand over their sentences, and Holding REP stacks: the heading, its sentence, then the foot's
+   points and the button under them. */
 @media(max-width:1023px){
 .home-v2 .how-path{grid-template-columns:minmax(0,1fr);row-gap:4px}
 .home-v2 :is(.how-path-tabs,.how-path-stage){grid-column:auto}
@@ -596,7 +600,6 @@
 .home-v2 .example-step{grid-template-columns:120px minmax(0,1fr);column-gap:24px}
 .home-v2 .holding{margin-top:48px}
 .home-v2 .holding-points{grid-template-columns:repeat(2,minmax(0,1fr))}
-.home-v2 .holding.has-labels .holding-point{grid-template-columns:minmax(0,1fr);row-gap:4px}
 }
 @media(max-width:767px){
 .home-v2 .how-path-panel{row-gap:20px;padding:24px 20px}
@@ -608,10 +611,10 @@
 .home-v2 .example-name{line-height:24px}
 .home-v2 .example-line{font-size:16px;line-height:24px}
 .home-v2 .holding-points{grid-template-columns:minmax(0,1fr)}
-.home-v2 .holding.has-labels{padding:20px 20px 24px}
-.home-v2 .holding.has-labels .holding-head{flex-direction:column;align-items:flex-start}
-.home-v2 .holding.has-labels .holding-point p{font-size:16px;line-height:24px}
-.home-v2 .holding-label{font-size:18px;line-height:26px}
+.home-v2 .holding-top{display:block;padding:20px 20px 24px}
+.home-v2 .holding-top :is(.holding-title,.holding-earn){padding-left:0;font-size:22px;line-height:30px}
+.home-v2 .holding-line{margin-top:12px;padding:0}
+.home-v2 .holding-foot{flex-direction:column;align-items:flex-start;padding:20px 20px 24px}
 }
 @media(prefers-reduced-motion:reduce){.home-v2 .how-path-tab{transition:none}}
 @media(forced-colors:active){

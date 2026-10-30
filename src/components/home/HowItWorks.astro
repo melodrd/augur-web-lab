@@ -27,6 +27,10 @@ const values:Record<string,string>={fee:reps(rep.fee),bond:reps(rep.bond),challe
 // ({+words} with no such value sets the words themselves, as {+the reward}).
 const value=(text:string)=>text.replace(/\{(\w+)\}/g,(token,name:string)=>values[name]??token);
 const story=(text:string)=>text.split(/(\*\*.+?\*\*|\{\+[^}]+\})/).filter(Boolean).map(part=>part.startsWith('**')?{value:value(part.slice(2,-2)),win:false}:part.startsWith('{+')?{value:values[part.slice(2,-1)]??part.slice(2,-1),win:true}:value(part));
+// Holding REP where the points carry labels (every version): the point that earns leads, its term the answer under
+// the title and its sentence beside them; the others are the card's foot, with the link.
+const holderPoints:readonly {label?:string;text:string;earn?:boolean}[]=holderCopy.points;
+const holderLead=holderPoints.find(point=>point.earn)??holderPoints[0]!,holderRest=holderPoints.filter(point=>point!==holderLead);
 ---
 <section class="how-it-works section" id="how-it-works" aria-labelledby="how-heading" data-how-v2><div class="container">
  <div class="section-heading"><h2 id="how-heading" data-paid-heading data-reveal>Know what happened?<br/>Get <span class="paid">paid<span class="paid-mark" aria-hidden="true"></span></span> to report it.</h2><p class="lead" data-reveal>{path.lead}</p></div>
@@ -40,7 +44,7 @@ const story=(text:string)=>text.split(/(\*\*.+?\*\*|\{\+[^}]+\})/).filter(Boolea
    <ol class="example-story">{path.example.story.map((text,i,all)=><li class:list={['example-step',{'is-you':i===all.length-1}]} data-example-row><span class="example-name">{path.stops[i]!.title}</span><p class="example-line">{story(text).map(part=>typeof part==='string'?part:<strong class:list={{'is-win':part.win}}>{part.value}</strong>)}</p></li>)}</ol>
   </div>
  </div>
- <div class:list={['holding',{'has-labels':holderCopy.points.some(point=>'label' in point)}]} data-reveal><div class="holding-head"><h3 class="holding-title">{holderCopy.title}</h3>{'link' in holderCopy?<Button href="/rep/" variant="outline">{holderCopy.link}</Button>:<Button href="/rep/" variant="text">Learn about REP</Button>}</div><ul class="holding-points">{holderCopy.points.map(point=><li class:list={['holding-point',{'is-act':'act' in point,'is-earn':'earn' in point}]}>{'label' in point?<span class="holding-label">{point.label}</span>:<i class="holding-mark" aria-hidden="true"></i>}<p>{'lead' in point&&<Fragment><strong>{point.lead}</strong> </Fragment>}{point.text}</p></li>)}</ul></div>
+ {holderPoints.some(point=>point.label)?<div class="holding has-labels" data-reveal><div class="holding-top"><h3 class="holding-title">{holderCopy.title}</h3><p class="holding-earn">{holderLead.label}</p><p class="holding-line">{holderLead.text}</p></div><div class="holding-foot"><ul class="holding-notes">{holderRest.map(point=><li><span class="holding-label">{point.label}</span> {point.text}</li>)}</ul><Button href="/rep/" variant="outline">{'link' in holderCopy?holderCopy.link:'Learn about REP'}</Button></div></div>:<div class="holding" data-reveal><div class="holding-head"><h3 class="holding-title">{holderCopy.title}</h3>{'link' in holderCopy?<Button href="/rep/" variant="outline">{holderCopy.link}</Button>:<Button href="/rep/" variant="text">Learn about REP</Button>}</div><ul class="holding-points">{holderCopy.points.map(point=><li class:list={['holding-point',{'is-act':'act' in point,'is-earn':'earn' in point}]}>{'label' in point?<span class="holding-label">{point.label}</span>:<i class="holding-mark" aria-hidden="true"></i>}<p>{'lead' in point&&<Fragment><strong>{point.lead}</strong> </Fragment>}{point.text}</p></li>)}</ul></div>}
 </div></section><script is:inline set:html={reviewInline.v2.scripts.howPath}></script>
 <style>
  /* One section answers “How do I take part, and how do I get paid?” (owner + Augus, 19 Oct 2026). The
