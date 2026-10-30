@@ -21,14 +21,14 @@ export const homeV2 = {
   hero: {
     // Owner, 29 Oct 2026: Augus's ideas, each said once. The opening sentence points back at the lead ("those
     // answers": real-world answers for onchain apps), so it defines "oracle" without saying the lead again.
-    intro: 'Augur Lituus is the oracle behind those answers.',
+    intro: 'Augur Lituus is Augur’s next-generation oracle: it tells blockchain apps what happened in the real world.',
     // Owner, 29 Oct 2026: Ryan 2's ending, as on /ryan/ and /ryan-augus/, with "ask" added ("add an ask
     // there and we're golden"), now in Augus's three verbs, so the sentence names the moves before the cost
     // of lying. The whitepaper's modelled estimate (Abstract p1; §7.5 p20, 46% costlier to attack than Augur's
     // previous design), hedged by "designed to"; the Robust card says the ranking against other oracles.
     // Anyone may ask for a fee (§2 p2, §4.4.1 p7). Hero.astro renders `bodyStart` after the opening sentence,
     // in place of the shared second sentence's opening; the ending's last two words stay on one line.
-    bodyStart: 'Anyone can ask, report or challenge, and ',
+    bodyStart: 'Anyone can answer, anyone can challenge, and ',
     keep: 2,
     bodyEnd: 'lying is designed to cost more than ever before.',
     // Ryan 16, on Melo's too (owner, 29 Oct 2026): the page split into three intents on the first screen,
